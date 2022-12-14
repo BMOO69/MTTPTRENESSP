@@ -7,11 +7,12 @@ public class RecorrerTren {
     ArrayList<Riel> rieles;
     String dir = "Rieles.csv";
 
-    public RecorrerTren(String path){
+    public RecorrerTren(){
+    }
+    public void cargarCSV(String path) {
         cssvv = csv.read(path);
         rieles = csv.rielesAlmacen(cssvv);
     }
-
     public boolean salirTrenEstaccion(Riel rl, String nombresEst) {
 
         boolean res;

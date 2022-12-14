@@ -58,8 +58,8 @@ public class CSVManager {
                 if (idLine == id) {
                     bufferedWriter.write(newLine);
                 } else {
-                    //String condensedLine = Arrays.toString(line).replace(", ", ",").
-                    String condensedLine = Arrays.toString(line).replace(", ", ",").
+
+                    String condensedLine = Arrays.toString(line).replace(", ", "-").
                             replaceAll("[\\[\\]]", "") + "\n";
                     bufferedWriter.write(condensedLine);
                 }
@@ -107,7 +107,8 @@ public class CSVManager {
                 String codT = var[0];
                 int numV = Integer.parseInt(var[1]);
                 int nump = Integer.parseInt(var[2]);
-                res.add(new Tren(codT,numV,nump));
+                Tren nuevo = new Tren(codT,numV,nump);
+                res.add(nuevo);
             }
         }
         return res;

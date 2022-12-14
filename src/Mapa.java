@@ -28,7 +28,7 @@ public class Mapa extends JFrame {
         ccssvv = csv.read("Rieles.csv");
         rieel = csv.rielesAlmacen(ccssvv);
         //JPanel panel = new JPanel();
-
+        RecorrerTren recoT = new RecorrerTren();
 
         JPanel panel = new JPanel() {
             @Override
@@ -77,19 +77,37 @@ public class Mapa extends JFrame {
             }
         }
 
-        salidaTrenEstacion("Cercado");
-        Tren t = new Tren("adas",3,90);
+        String estaci = "Tarata";
         ImageIcon im = new ImageIcon("trenn.jpg");
-        JLabel nn = new JLabel();
-        nn.setBounds(250,350,50,50);
-        nn.setIcon(new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH)));
-        panel.add(nn);
 
+        JLabel nn = new JLabel();
+        nn.setIcon(new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH)));
+        recoT.cargarCSV("Rieles.csv");
+        Riel rrll=recoT.encontrarRiel(estaci);
+
+        mandarASalir(rrll,estaci,nn,panel);
+
+
+
+
+
+
+/*
         t.setEtiquetaTren(nn);
         t.setRl(rieel.get(0));
         t.start();
-
+*/
     }
-    public void salidaTrenEstacion(String nomb){}
+    public void mandarASalir(Riel rl,String nombreES,JLabel lavel,JPanel pannell) {
+        Tren t = new Tren("adas",3,90);
+        lavel.setBounds(250,350,50,50);
+
+        pannell.add(lavel);
+
+        t.setNombreEstacion(nombreES);
+        t.setEtiquetaTren(lavel);
+        t.setRl(rl);
+        t.start();
+    }
 
 }
