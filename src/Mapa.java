@@ -2,6 +2,8 @@ import sun.security.jgss.GSSHeader;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 public class Mapa extends JFrame {
@@ -76,27 +78,44 @@ public class Mapa extends JFrame {
                 panel.add(etiB);
             }
         }
-
-        String estaci = "Tarata";
+        ImageIcon imagenOK = new ImageIcon("check.png");
         ImageIcon im = new ImageIcon("trenn.jpg");
+        Tren.imagenOK= imagenOK;
+        Icon icono = new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH));
+        String estaci = "Cercado";
+        String estaci1 = "Tarata";
+
+
 
         JLabel nn = new JLabel();
-        nn.setIcon(new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH)));
+        JLabel nn1 = new JLabel();
+
+        nn.setIcon(icono);
+        nn1.setIcon(icono);
         recoT.cargarCSV("Rieles.csv");
         Riel rrll=recoT.encontrarRiel(estaci);
-
+        Riel rrll1 = recoT.encontrarRiel(estaci1);
         mandarASalir(rrll,estaci,nn,panel);
+        mandarASalir(rrll1,estaci1,nn1,panel);
+        Frame frame = this;
 
-
-
-
-
-
-/*
-        t.setEtiquetaTren(nn);
-        t.setRl(rieel.get(0));
-        t.start();
-*/
+       /* nn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JOptionPane.showMessageDialog(frame,"Estacion: "+estaci,
+                        "Informacion de la estacion",
+                        JOptionPane.INFORMATION_MESSAGE,imagenOK);
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+       */
     }
     public void mandarASalir(Riel rl,String nombreES,JLabel lavel,JPanel pannell) {
         Tren t = new Tren("adas",3,90);

@@ -1,0 +1,29 @@
+#JSGF V1.0;
+grammar sentence;
+
+public <sentence> =
+[<dato0>]
+[<dato1>]
+[<dato2>]
+[<dato3>]
+[<dato4>]
+[<dato5>]
+[<dato6>]
+[<dato7>]
+[<dato8>]
+[<dato9>]
+[<dato10>]
+[<dato11>];
+
+<dato0>=Terminar;
+<dato1>=Dibujar triangulo swing;
+<dato2>=Dibujar cuadrado swing;
+<dato3>=Dibujar piramide open;
+<dato4>=Dibujar cubo open;
+<dato5>=Dibujar esfera open;
+<dato6>=Dibujar circulo swing;
+<dato7>=Crear boton swing;
+<dato8>=Crear label swing;
+<dato9>=Crear texto swing;
+<dato10>=Dibujar diamnte swing;
+<dato11>=Dibujar casita;

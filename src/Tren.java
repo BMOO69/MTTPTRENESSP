@@ -1,12 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class Tren extends Thread{
 
     public String codTren;
     public int numPasajeros;
     public int numVagones;
+    public static ImageIcon imagenOK;
     JLabel etiquetaTren;
+    Frame frame;
     Riel rl;
 
     String nombreEstacion;
@@ -27,14 +31,33 @@ public class Tren extends Thread{
         if( dirr== 0){
             System.out.println(dirr);
             pendienteCero(direccion);
-        } else if (dirr < 0) {
+        } /*else if (dirr < 0) {
             System.out.println(dirr);
             pendienteMenor(direccion, dirr);
-        }
+        }*/
 
         System.out.println(dirr);
         map.remove(etiquetaTren);
     }
+    public void raton(JLabel lv,Estacion salida,Estacion llegada) {
+        lv.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JOptionPane.showMessageDialog(frame,"Estacion de Salida: "+salida.getDirEstacion()+"\n"+"Estacion a la llegada: "+ llegada.getDirEstacion(),
+                        "Informacion de la estacion",
+                        JOptionPane.INFORMATION_MESSAGE,imagenOK);
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+    }
+
     private double pendienteRecta (int x,int y,int x1,int y1) {
         double y22 = y1;
         double y11 = y;
@@ -97,9 +120,11 @@ public class Tren extends Thread{
             int xx = rl.getEstacionA().getPosX();
             int yy = rl.getEstacionA().getPosY();
 
+            raton(etiquetaTren,rl.getEstacionA(),rl.getEstacionB());
+
             while (xx <= rl.getEstacionB().getPosX()) {
                 try {
-                    Thread.sleep(700);
+                    Thread.sleep(1000);
 
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -110,6 +135,7 @@ public class Tren extends Thread{
         } else {
             int xx = rl.getEstacionB().getPosX();
             int yy = rl.getEstacionB().getPosY();
+            raton(etiquetaTren,rl.getEstacionB(),rl.getEstacionA());
 
             while (xx >= rl.getEstacionA().getPosX()) {
                 try {
@@ -181,5 +207,11 @@ public class Tren extends Thread{
     public void setNombreEstacion(String nombreEstacion) {
         this.nombreEstacion = nombreEstacion;
     }
+    public Frame getFrame() {
+        return frame;
+    }
 
+    public void setFrame(Frame frame) {
+        this.frame = frame;
+    }
 }

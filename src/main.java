@@ -6,9 +6,6 @@ public class main {
 
     public static void main(String[] args) {
 
-       //Hola ho = new Hola();
-      // ho.setVisible(true);
-
         Mapa m1 = new Mapa();
         m1.setVisible(true);
 
