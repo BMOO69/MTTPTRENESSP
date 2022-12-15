@@ -9,13 +9,6 @@ public class main {
         Mapa m1 = new Mapa();
         m1.setVisible(true);
 
- /*
-        Queue<String> cola = new LinkedList<>();
-        cola.add("perro");
-        cola.add("grato");
-        cola.add("ggg");
-        String res = cola.toString();
-        System.out.println(res);
 /*
         Tren b1 = new Tren("Primer1B",4,45);
         Tren b3 = new Tren("Segundo1B",3,34);
@@ -30,14 +23,8 @@ public class main {
 
         System.out.println(es1.toString());
 
-
-        CSVManager csv = CSVManager.getInstance();
-
-
-
-
-
-
+*/
+       /* CSVManager csv = CSVManager.getInstance();
         Estacion es1 = new Estacion("Sacaba",7,80,100);
         Tren t = new Tren("PrimerTren1A", 9,54);
         Tren t2 = new Tren("SegundoTren2A", 5,90);
@@ -54,9 +41,21 @@ public class main {
         es2.almacenarTren(v3);
 
         Riel r1 = new Riel(2,es1,es2);
-        csv.write("Rieles.csv",r1.toString());
-*\
-/*
+        //csv.write("Rieles.csv",r1.toString());
+        ArrayList<String[]> ff = csv.read("Rieles.csv");
+        ArrayList<Riel> rsd = csv.rielesAlmacen(ff);
+        Estacion a = rsd.get(0).getEstacionB();
+        Estacion b = rsd.get(1).getEstacionB();
+
+        Riel jun = new Riel(4,a,b);
+        csv.write("Rieles.csv",jun.toString());
+
+        ArrayList<String> sd = new ArrayList<>();
+        sd.add("uno");
+        sd.add("dos");
+        System.out.println(sd.get(0));
+
+
         Queue<Tren> bg = new ArrayDeque<Tren>();
         String pru = "PrimerTren1A#9#54,SegundoTren2A#5#90,TercerTren3A#8#45";
         String[] re = pru.split(",");

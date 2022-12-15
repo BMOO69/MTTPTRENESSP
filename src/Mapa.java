@@ -1,12 +1,15 @@
 import sun.security.jgss.GSSHeader;
 
+import javax.speech.AudioException;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-public class Mapa extends JFrame {
+public class Mapa extends JFrame implements ChangeListener {
     
     CSVManager csv = CSVManager.getInstance();
 
@@ -14,7 +17,9 @@ public class Mapa extends JFrame {
     ArrayList<Riel> rieel;
     ArrayList<Tren> treenes;
     ArrayList<Estacion> stations;
-
+    JCheckBox jCheckBox;
+    JPanel panel;
+    Microfono micro;
     public Mapa() {
         setSize(1000,800);
         setLocation(100,100);
@@ -29,10 +34,14 @@ public class Mapa extends JFrame {
 
         ccssvv = csv.read("Rieles.csv");
         rieel = csv.rielesAlmacen(ccssvv);
-        //JPanel panel = new JPanel();
+        micro = new Microfono();
+       // micro.inicializarMicro();
         RecorrerTren recoT = new RecorrerTren();
+        jCheckBox = new JCheckBox("Microfono");
+        jCheckBox.setBounds(10,10,100,20);
+        jCheckBox.addChangeListener(this);
 
-        JPanel panel = new JPanel() {
+        panel = new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -50,6 +59,8 @@ public class Mapa extends JFrame {
                 }
             }
         };
+        panel.add(jCheckBox);
+
         Tren.setMap(panel);
         panel.setBackground(Color.green);
         panel.setLayout(null);
@@ -83,20 +94,31 @@ public class Mapa extends JFrame {
         Tren.imagenOK= imagenOK;
         Icon icono = new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH));
         String estaci = "Cercado";
-        String estaci1 = "Tarata";
-
-
+        String estaci1 = "Sacaba";
 
         JLabel nn = new JLabel();
         JLabel nn1 = new JLabel();
+
+        //String prueba = micro.getPalabra();
+
 
         nn.setIcon(icono);
         nn1.setIcon(icono);
         recoT.cargarCSV("Rieles.csv");
         Riel rrll=recoT.encontrarRiel(estaci);
         Riel rrll1 = recoT.encontrarRiel(estaci1);
-        mandarASalir(rrll,estaci,nn,panel);
-        mandarASalir(rrll1,estaci1,nn1,panel);
+
+        //mandarASalir(rrll,estaci,nn,panel);
+      //  mandarASalir(rrll1,estaci1,nn1,panel);
+        /*
+        if (prueba.equals("Cercado")) {
+            mandarASalir(rrll,estaci,nn,panel);
+        }
+        if (prueba.equals("Tarata")) {
+            mandarASalir(rrll1,estaci1,nn1,panel);
+        }*/
+        //
+        //
         Frame frame = this;
 
        /* nn.addMouseListener(new MouseListener() {
@@ -129,4 +151,18 @@ public class Mapa extends JFrame {
         t.start();
     }
 
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        if (jCheckBox.isSelected() == true) {
+           // try {
+/*                //micro.encerderMicrofono();
+            } catch (AudioException ex) {
+                throw new RuntimeException(ex);
+            }*/
+
+        }
+        else {
+            micro.apagarMicrofono();
+        }
+    }
 }

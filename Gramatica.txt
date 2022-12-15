@@ -16,14 +16,14 @@ public <sentence> =
 [<dato11>];
 
 <dato0>=Terminar;
-<dato1>=Dibujar triangulo swing;
-<dato2>=Dibujar cuadrado swing;
-<dato3>=Dibujar piramide open;
-<dato4>=Dibujar cubo open;
-<dato5>=Dibujar esfera open;
-<dato6>=Dibujar circulo swing;
-<dato7>=Crear boton swing;
-<dato8>=Crear label swing;
+<dato1>=Salida Tren;
+<dato2>=Crear Tren;
+<dato3>=Tarata;
+<dato4>=Quillacollo;
+<dato5>=Sacaba;
+<dato6>=Cercado;
+<dato7>=ver;
+<dato8>=Hola;
 <dato9>=Crear texto swing;
 <dato10>=Dibujar diamnte swing;
 <dato11>=Dibujar casita;

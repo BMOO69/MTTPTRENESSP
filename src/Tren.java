@@ -27,17 +27,17 @@ public class Tren extends Thread{
         RecorrerTren recoT = new RecorrerTren();
         recoT.cargarCSV("Rieles.csv");
         boolean direccion = recoT.salirTrenEstaccion(this.getRl(), this.nombreEstacion);
-        double dirr =pendienteRecta(rl.getEstacionA().getPosX(),rl.getEstacionA().getPosY(),rl.getEstacionB().getPosX(),rl.getEstacionB().getPosY());
-        if( dirr== 0){
-            System.out.println(dirr);
+        double pendiente =pendienteRecta(rl.getEstacionA().getPosX(),rl.getEstacionA().getPosY(),rl.getEstacionB().getPosX(),rl.getEstacionB().getPosY());
+        if( pendiente == 0){
+            System.out.println(pendiente);
             pendienteCero(direccion);
-        } /*else if (dirr < 0) {
-            System.out.println(dirr);
-            pendienteMenor(direccion, dirr);
-        }*/
+        } else {
+            System.out.println(direccion);
+            pendienteInfinito(direccion);
+        }
 
-        System.out.println(dirr);
-        map.remove(etiquetaTren);
+        System.out.println(direccion);
+        //map.remove(etiquetaTren);
     }
     public void raton(JLabel lv,Estacion salida,Estacion llegada) {
         lv.addMouseListener(new MouseListener() {
@@ -58,62 +58,47 @@ public class Tren extends Thread{
         });
     }
 
+    private void pendienteInfinito(boolean dir) {
+        if (dir == true) {
+            int xx = rl.getEstacionA().getPosX();
+            int yy = rl.getEstacionA().getPosY();
+            raton(etiquetaTren, rl.getEstacionA(), rl.getEstacionB());
+
+            while (xx <= rl.getEstacionB().getPosX()) {
+                try {
+                    Thread.sleep(700);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                yy = yy + 40;
+                etiquetaTren.setBounds(xx, yy, 50, 50);
+            }
+        }else {
+            int xx = rl.getEstacionB().getPosX();
+            int yy = rl.getEstacionB().getPosY();
+            raton(etiquetaTren,rl.getEstacionB(),rl.getEstacionA());
+
+            while (xx >= rl.getEstacionA().getPosX()) {
+                try {
+                    Thread.sleep(700);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                yy = yy - 40;
+                etiquetaTren.setBounds(xx, yy, 50, 50);
+            }
+
+        }
+    }
     private double pendienteRecta (int x,int y,int x1,int y1) {
         double y22 = y1;
         double y11 = y;
         double x22 = x1;
         double x11 = x;
 
-        double res1 ;
-        res1 = (y22-y11)/(x22-x11);
+        double res1;
+        res1 = (y22 - y11) / (x22 - x11);
         return res1;
-    }
-    private void pendienteMenor(boolean dir, double m) {
-        if (dir == true) {
-            int xx = rl.getEstacionA().getPosX();
-            int yy = rl.getEstacionA().getPosY();
-
-            while (xx <= rl.getEstacionB().getPosX()) {
-                try {
-                    Thread.sleep(700);
-
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                xx = xx + 40;
-                yy =yy;
-                int  var= (int) coordY(m,xx,yy);
-                yy = var;
-                etiquetaTren.setBounds(xx, var, 50, 50);
-            }
-        }else {
-            int xx = rl.getEstacionA().getPosX();
-            int yy = rl.getEstacionA().getPosY();
-
-            while (xx <= rl.getEstacionB().getPosX()) {
-                try {
-                    Thread.sleep(700);
-
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                xx = xx - 40;
-                int  var= (int) coordY(m,xx,yy);
-                yy = var;
-                etiquetaTren.setBounds(xx, yy, 50, 50);
-            }
-        }
-
-    }
-    private double coordY(double m,double x,double y) {
-        double res;
-        double b= ((m*x)+y);
-        System.out.println(b);
-        System.out.println((m*x));
-        res = (m*x)-b;
-        System.out.println(m+"   "+x+"   "+y);
-        System.out.println(res);
-        return res;
     }
     private void pendienteCero(boolean dir) {
         if (dir == true) {
