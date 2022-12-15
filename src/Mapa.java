@@ -93,8 +93,8 @@ public class Mapa extends JFrame implements ChangeListener {
         ImageIcon im = new ImageIcon("trenn.jpg");
         Tren.imagenOK= imagenOK;
         Icon icono = new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH));
-        String estaci = "Cercado";
-        String estaci1 = "Sacaba";
+        String estaci1 = "Cercado";
+        String estaci = "Sacaba";
 
         JLabel nn = new JLabel();
         JLabel nn1 = new JLabel();
@@ -105,10 +105,10 @@ public class Mapa extends JFrame implements ChangeListener {
         nn.setIcon(icono);
         nn1.setIcon(icono);
         recoT.cargarCSV("Rieles.csv");
-        Riel rrll=recoT.encontrarRiel(estaci);
-        Riel rrll1 = recoT.encontrarRiel(estaci1);
-
-        //mandarASalir(rrll,estaci,nn,panel);
+        Riel rrll=recoT.encontrarRiel(estaci,estaci1);
+        Riel rrll1 = recoT.encontrarRiel(estaci1,estaci);
+        System.out.println(rrll.toString());
+   //     mandarASalir(rrll,estaci,estaci1,nn,panel);
       //  mandarASalir(rrll1,estaci1,nn1,panel);
         /*
         if (prueba.equals("Cercado")) {
@@ -139,13 +139,14 @@ public class Mapa extends JFrame implements ChangeListener {
         });
        */
     }
-    public void mandarASalir(Riel rl,String nombreES,JLabel lavel,JPanel pannell) {
+    public void mandarASalir(Riel rl,String nombreESA,String nombreESLle,JLabel lavel,JPanel pannell) {
         Tren t = new Tren("adas",3,90);
         lavel.setBounds(250,350,50,50);
 
         pannell.add(lavel);
 
-        t.setNombreEstacion(nombreES);
+        t.setNombreEstacionSalida(nombreESA);
+        t.setNombreEstacionLLegada(nombreESLle);
         t.setEtiquetaTren(lavel);
         t.setRl(rl);
         t.start();

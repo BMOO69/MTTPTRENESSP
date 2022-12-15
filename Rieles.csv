@@ -1,4 +1,4 @@
-1-Cercado|0|true|7|200|200|Segundo1BB#3#34,Tercer1BB#6#12,PrimerTren1AA#9#54,SegundoTren2AA#5#90-Tarata|0|true|5|750|200|TercerTren3AA#8#45,Primer1BB#4#45
-2-Sacaba|0|true|7|200|500|PrimerTren1A#9#54-Quillacollo|0|true|5|750|500|Primer1B#4#45,Segundo1B#3#34,Tercer1B#6#12,SegundoTren2A#5#90,TercerTren3A#8#45
-3-Cercado|0|true|7|200|200|Segundo1BB#3#34,Tercer1BB#6#12,PrimerTren1AA#9#54,SegundoTren2AA#5#90-Sacaba|0|true|7|200|500|PrimerTren1A#9#54
+1-Cercado|0|true|7|200|200|PrimerTren1AA#9#54,SegundoTren2AA#5#90-Tarata|0|true|5|750|200|TercerTren3AA#8#45,Primer1BB#4#45
+2-Sacaba|0|true|7|200|500|PrimerTren1A#9#54,Segundo1BB#3#34,Tercer1BB#6#12-Quillacollo|0|true|5|750|500|Primer1B#4#45,Segundo1B#3#34,Tercer1B#6#12,SegundoTren2A#5#90,TercerTren3A#8#45
+3-Cercado|0|true|7|200|200|PrimerTren1AA#9#54,SegundoTren2AA#5#90-Sacaba|0|true|7|200|500|PrimerTren1A#9#54,Segundo1BB#3#34,Tercer1BB#6#12
 4-Tarata|0|true|5|750|200|TercerTren3AA#8#45,Primer1BB#4#45-Quillacollo|0|true|5|750|500|Primer1B#4#45,Segundo1B#3#34,Tercer1B#6#12,SegundoTren2A#5#90,TercerTren3A#8#45

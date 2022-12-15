@@ -13,7 +13,8 @@ public class Tren extends Thread{
     Frame frame;
     Riel rl;
 
-    String nombreEstacion;
+    String nombreEstacionSalida;
+    String nombreEstacionLLegada;
     public static JPanel map;
     //RecorrerTren reco  = new RecorrerTren("Rieles.csv");
     public Tren(String codTren, int numVagones, int numPasajeros) {
@@ -26,7 +27,7 @@ public class Tren extends Thread{
     public void run() {
         RecorrerTren recoT = new RecorrerTren();
         recoT.cargarCSV("Rieles.csv");
-        boolean direccion = recoT.salirTrenEstaccion(this.getRl(), this.nombreEstacion);
+        boolean direccion = recoT.salirTrenEstaccion(this.getRl(), this.nombreEstacionSalida);
         double pendiente =pendienteRecta(rl.getEstacionA().getPosX(),rl.getEstacionA().getPosY(),rl.getEstacionB().getPosX(),rl.getEstacionB().getPosY());
         if( pendiente == 0){
             System.out.println(pendiente);
@@ -64,7 +65,7 @@ public class Tren extends Thread{
             int yy = rl.getEstacionA().getPosY();
             raton(etiquetaTren, rl.getEstacionA(), rl.getEstacionB());
 
-            while (xx <= rl.getEstacionB().getPosX()) {
+            while (yy <= rl.getEstacionB().getPosY()) {
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
@@ -78,7 +79,7 @@ public class Tren extends Thread{
             int yy = rl.getEstacionB().getPosY();
             raton(etiquetaTren,rl.getEstacionB(),rl.getEstacionA());
 
-            while (xx >= rl.getEstacionA().getPosX()) {
+            while (yy >= rl.getEstacionA().getPosY()) {
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
@@ -185,13 +186,22 @@ public class Tren extends Thread{
         Tren.map = map;
     }
 
-    public String getNombreEstacion() {
-        return nombreEstacion;
+    public String getNombreEstacionSalida() {
+        return nombreEstacionSalida;
     }
 
-    public void setNombreEstacion(String nombreEstacion) {
-        this.nombreEstacion = nombreEstacion;
+    public void setNombreEstacionSalida(String nombreEstacion) {
+        this.nombreEstacionSalida = nombreEstacion;
     }
+
+    public String getNombreEstacionLLegada() {
+        return nombreEstacionLLegada;
+    }
+
+    public void setNombreEstacionLLegada(String nombreEstacionLLegada) {
+        this.nombreEstacionLLegada = nombreEstacionLLegada;
+    }
+
     public Frame getFrame() {
         return frame;
     }
