@@ -35,12 +35,12 @@ public class Mapa extends JFrame implements ChangeListener {
         ccssvv = csv.read("Rieles.csv");
         rieel = csv.rielesAlmacen(ccssvv);
         micro = new Microfono();
-       // micro.inicializarMicro();
+        //micro.inicializarMicro();
         RecorrerTren recoT = new RecorrerTren();
         jCheckBox = new JCheckBox("Microfono");
         jCheckBox.setBounds(10,10,100,20);
         jCheckBox.addChangeListener(this);
-
+        Frame frame = this;
         panel = new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
@@ -78,6 +78,8 @@ public class Mapa extends JFrame implements ChangeListener {
                 nombreEtiA.setBounds(i.getEstacionA().getPosX()-50,i.getEstacionA().getPosY()-60,100,10);
                 panel.add(nombreEtiA);
                 panel.add(etiA);
+                ratonEstacion(etiA,frame,i.getEstacionA());
+
 
                 JLabel etiB = new JLabel();
 
@@ -93,8 +95,8 @@ public class Mapa extends JFrame implements ChangeListener {
         ImageIcon im = new ImageIcon("trenn.jpg");
         Tren.imagenOK= imagenOK;
         Icon icono = new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH));
-        String estaci1 = "Cercado";
-        String estaci = "Sacaba";
+        String estaci = "Quillacollo";
+        String estaci1 = "Tarata";
 
         JLabel nn = new JLabel();
         JLabel nn1 = new JLabel();
@@ -106,10 +108,10 @@ public class Mapa extends JFrame implements ChangeListener {
         nn1.setIcon(icono);
         recoT.cargarCSV("Rieles.csv");
         Riel rrll=recoT.encontrarRiel(estaci,estaci1);
-        Riel rrll1 = recoT.encontrarRiel(estaci1,estaci);
-        System.out.println(rrll.toString());
-   //     mandarASalir(rrll,estaci,estaci1,nn,panel);
-      //  mandarASalir(rrll1,estaci1,nn1,panel);
+        //Riel rrll1 = recoT.encontrarRiel(estaci,estaci1);
+        //System.out.println(rrll1.toString());
+        mandarASalir(rrll,estaci,estaci1,nn,panel);
+      //mandarASalir(rrll1,estaci1,nn1,panel);
         /*
         if (prueba.equals("Cercado")) {
             mandarASalir(rrll,estaci,nn,panel);
@@ -119,7 +121,7 @@ public class Mapa extends JFrame implements ChangeListener {
         }*/
         //
         //
-        Frame frame = this;
+
 
        /* nn.addMouseListener(new MouseListener() {
             @Override
@@ -155,15 +157,32 @@ public class Mapa extends JFrame implements ChangeListener {
     @Override
     public void stateChanged(ChangeEvent e) {
         if (jCheckBox.isSelected() == true) {
-           // try {
-/*                //micro.encerderMicrofono();
+            /*try {
+                micro.encerderMicrofono();
             } catch (AudioException ex) {
                 throw new RuntimeException(ex);
-            }*/
-
+            }
+            */
         }
         else {
             micro.apagarMicrofono();
         }
+    }
+    public void ratonEstacion(JLabel labEstacion,Frame frame,Estacion estacion){
+        labEstacion.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JOptionPane.showMessageDialog(frame,"Nombre de la estacion: "+estacion.getDirEstacion(),"Prueba",JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
     }
 }

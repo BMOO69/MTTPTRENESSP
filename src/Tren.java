@@ -67,7 +67,7 @@ public class Tren extends Thread{
 
             while (yy <= rl.getEstacionB().getPosY()) {
                 try {
-                    Thread.sleep(700);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -81,7 +81,7 @@ public class Tren extends Thread{
 
             while (yy >= rl.getEstacionA().getPosY()) {
                 try {
-                    Thread.sleep(700);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -125,7 +125,7 @@ public class Tren extends Thread{
 
             while (xx >= rl.getEstacionA().getPosX()) {
                 try {
-                    Thread.sleep(700);
+                    Thread.sleep(1000);
 
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);

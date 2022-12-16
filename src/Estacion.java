@@ -1,5 +1,9 @@
 import com.sun.deploy.util.StringUtils;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -12,6 +16,9 @@ public class Estacion {
     public int posX;
     public int posY;
     public boolean operando;
+
+    public JLabel etiquetaEstacion;
+    public Frame frame;
 
     //public ArrayList<Tren> parqueo = new ArrayList<>();
 
@@ -42,6 +49,8 @@ public class Estacion {
         }
         return res;
     }
+
+
     public void almacenarTren(Tren tren) {
         parqueo.add(tren);
     }
@@ -82,4 +91,11 @@ public class Estacion {
     public int getPosX() { return posX;}
     public int getPosY() { return posY;}
 
+    public JLabel getEtiquetaEstacion() {
+        return etiquetaEstacion;
+    }
+
+    public void setEtiquetaEstacion(JLabel etiquetaEstacion) {
+        this.etiquetaEstacion = etiquetaEstacion;
+    }
 }

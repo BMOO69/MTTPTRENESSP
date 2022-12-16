@@ -24,6 +24,7 @@ public class Riel {
     }
 
     public String toString() {
+
         String res = numRiel + "-" + estacionA.toString() + "-" + estacionB.toString() + "\n";
         return  res;
     }

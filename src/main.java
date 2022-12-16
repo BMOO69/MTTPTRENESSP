@@ -1,11 +1,23 @@
 import com.sun.deploy.ui.AboutDialog;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.*;
 
 public class main {
 
     public static void main(String[] args) {
-
+    /*
+        JLabel p = new JLabel("hola");
+        p.setBounds(60,60,50,50);
+        Semaforo sef = new Semaforo(20,20);
+        sef.funcionarSemaforo();
+        prueba pr = new prueba();
+        pr.add(sef);
+        p.setForeground(Color.black);
+        pr.add(p);
+        sef.setForeground(Color.gray);
+        pr.setVisible(true);*/
         Mapa m1 = new Mapa();
         m1.setVisible(true);
 

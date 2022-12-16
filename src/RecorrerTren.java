@@ -64,12 +64,16 @@ public class RecorrerTren {
         }
     }
     public Riel encontrarRiel(String nombreEsSalida,String nombreEsLlegada) {
+        //Riel res = new Riel(0,new Estacion(),new Estacion());
         Riel res = new Riel();
         if (!rieles.isEmpty()) {
             for (Riel i: rieles) {
-                if (i.getEstacionA().getDirEstacion().equals(nombreEsSalida) && i.getEstacionB().getDirEstacion().equals(nombreEsLlegada)) {
+                if ((i.getEstacionA().getDirEstacion().equals(nombreEsSalida) && i.getEstacionB().getDirEstacion().equals(nombreEsLlegada)) ||
+                        (i.getEstacionB().getDirEstacion().equals(nombreEsSalida) && i.getEstacionA().getDirEstacion().equals(nombreEsLlegada))) {
+
                     res = i;
-                    break;
+                        break;
+
                 }
             }
         }
