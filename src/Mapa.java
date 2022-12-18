@@ -25,6 +25,10 @@ public class Mapa extends JFrame implements ChangeListener {
     JButton JBtn_SalirTren;
     String salida="";
     String llegada="";
+    ImageIcon im;
+    Icon icono;
+    Frame frame;
+    RecorrerTren recoT;
     public Mapa() {
         ccssvv = csv.read(path);
         rieel = csv.rielesAlmacen(ccssvv);
@@ -33,6 +37,9 @@ public class Mapa extends JFrame implements ChangeListener {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Control de operaciones de trenes");
+        frame = this;
+        im = new ImageIcon("trenn.jpg");
+        icono = new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH));
         //this.getContentPane().setBackground(Color.green);
         iniciarComponentes();
     }
@@ -40,9 +47,8 @@ public class Mapa extends JFrame implements ChangeListener {
     private void iniciarComponentes() {
         micro = new Microfono();
         //micro.inicializarMicro();
-        RecorrerTren recoT = new RecorrerTren();
+        recoT = new RecorrerTren(path);
 
-        Frame frame = this;
         panel = new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
@@ -52,11 +58,11 @@ public class Mapa extends JFrame implements ChangeListener {
                 Graphics2D g2 =(Graphics2D) g;
                 g2.setStroke(new BasicStroke(10));
                 if(!rieel.isEmpty()) {
-                    for (int i= 0; i<rieel.size(); i++) {
-                        Estacion estacionA = rieel.get(i).getEstacionA();
-                        Estacion estacionB = rieel.get(i).getEstacionB();
+                    for (Riel riel : rieel) {
+                        Estacion estacionA = riel.getEstacionA();
+                        Estacion estacionB = riel.getEstacionB();
 
-                        g.drawLine(estacionA.getPosX(),estacionA.getPosY(),estacionB.getPosX(),estacionB.getPosY());
+                        g.drawLine(estacionA.getPosX(), estacionA.getPosY(), estacionB.getPosX(), estacionB.getPosY());
                     }
                 }
             }
@@ -65,13 +71,13 @@ public class Mapa extends JFrame implements ChangeListener {
         colocarCajasDeTexto();
 
 
-        panel.add(jCheckBox);
+
 
         Tren.setMap(panel);
         panel.setBackground(Color.green);
         panel.setLayout(null);
         this.getContentPane().add(panel);
-        JLabel etiqueta = new JLabel();
+        //JLabel etiqueta = new JLabel();
 
         ImageIcon imagen = new ImageIcon("trainStation.png");
         if (!rieel.isEmpty()){
@@ -98,22 +104,14 @@ public class Mapa extends JFrame implements ChangeListener {
                 ratonEstacion(etiB,frame,i.getEstacionB());
             }
         }
-        ImageIcon imagenOK = new ImageIcon("check.png");
-        ImageIcon im = new ImageIcon("trenn.jpg");
-        Tren.imagenOK= imagenOK;
-        Icon icono = new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH));
-        String estaci = "Sacaba";
-        String estaci1 = "Quillacollo";
-
         JLabel nn = new JLabel();
         JLabel nn1 = new JLabel();
 
         nn.setIcon(icono);
         nn1.setIcon(icono);
-        recoT.cargarCSV("Rieles.csv");
-        Riel rrll=recoT.encontrarRiel(estaci,estaci1);
-        Riel rrll1 = recoT.encontrarRiel(estaci1,estaci);
-        //System.out.println(rrll1.toString());
+        //recoT.cargarCSV("Rieles.csv");
+       // Riel rrll=recoT.encontrarRiel(estaci,estaci1);
+        //Riel rrll1 = recoT.encontrarRiel(estaci1,estaci);
         //mandarASalir(rrll,estaci,estaci1,nn,panel);
         //mandarASalir(rrll1,estaci1,estaci,nn1,panel);
 
@@ -121,7 +119,7 @@ public class Mapa extends JFrame implements ChangeListener {
     }
 
     private void colocarCajasDeTexto() {
-        
+
         cajaEsSalida = new JTextField();
         cajaEsSalida.setBounds(200,40,100,30);
         panel.add(cajaEsSalida);
@@ -131,6 +129,7 @@ public class Mapa extends JFrame implements ChangeListener {
         JBtn_SalirTren = new JButton("SALIR!!!");
         JBtn_SalirTren.setBounds(450,40,100,30);
         panel.add(JBtn_SalirTren);
+        //panel.add(jCheckBox);
         JBtn_SalirTren.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -138,6 +137,13 @@ public class Mapa extends JFrame implements ChangeListener {
                 salida = cajaEsSalida.getText();
                 llegada = cajaEsLlegada.getText();
                 System.out.println(salida+ "   "+llegada);
+
+                Riel rl = recoT.encontrarRiel(salida,llegada);
+                if  (rl.getNumRiel() != 0) {
+                    //JLabel lavel = new JLabel()
+                    //mandarASalir(rl,salida,llegada,);
+                }
+
             }
         });
 

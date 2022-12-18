@@ -29,8 +29,8 @@ public class Tren extends Thread implements Comparable<Tren> {
 
     @Override
     public void run() {
-        RecorrerTren recoT = new RecorrerTren();
-        recoT.cargarCSV("Rieles.csv");
+        RecorrerTren recoT = new RecorrerTren(DIRRIELES);
+        //recoT.cargarCSV("Rieles.csv");
         //boolean direccion = recoT.salirTrenEstaccion(this.getRl(), this.nombreEstacionSalida);
         boolean direccion = recoT.trenSaleDeEsatacion(this.getRl(),this.nombreEstacionSalida);
         double pendiente =pendienteRecta(rl.getEstacionA().getPosX(),rl.getEstacionA().getPosY(),rl.getEstacionB().getPosX(),rl.getEstacionB().getPosY());
