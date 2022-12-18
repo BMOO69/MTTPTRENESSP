@@ -102,26 +102,19 @@ public class Mapa extends JFrame implements ChangeListener {
         JLabel nn = new JLabel();
         JLabel nn1 = new JLabel();
 
-        //String prueba = micro.getPalabra();
-
-
         nn.setIcon(icono);
         nn1.setIcon(icono);
         recoT.cargarCSV("Rieles.csv");
         Riel rrll=recoT.encontrarRiel(estaci,estaci1);
         Riel rrll1 = recoT.encontrarRiel(estaci1,estaci);
         //System.out.println(rrll1.toString());
-        mandarASalir(rrll,estaci,estaci1,nn,panel);
+        //mandarASalir(rrll,estaci,estaci1,nn,panel);
         mandarASalir(rrll1,estaci1,estaci,nn1,panel);
-        /*
-        if (prueba.equals("Cercado")) {
-            mandarASalir(rrll,estaci,nn,panel);
-        }
-        if (prueba.equals("Tarata")) {
-            mandarASalir(rrll1,estaci1,nn1,panel);
-        }*/
+ 
 
     }
+
+
     public void mandarASalir(Riel rl,String nombreESA,String nombreESLle,JLabel lavel,JPanel pannell) {
 
         if (rl.getEstacionA().getDirEstacion().equals(nombreESA)){
@@ -130,43 +123,23 @@ public class Mapa extends JFrame implements ChangeListener {
                 if (rl.getEstacionA().getDirEstacion().equals(nombreESA)) {
                     tre = rl.getEstacionA().getParqueo().element();
                     if (tre.getColorSemaforo()== 1){
-                        Tren tren = new Tren();
-                        pannell.add(lavel);
-                        tren.setNombreEstacionSalida(nombreESA);
-                        tren.setNombreEstacionLLegada(nombreESLle);
-                        tren.setEtiquetaTren(lavel);
-                        tren.setRl(rl);
-                        tren.start();
+                        Tren tren = new Tren(tre.codTren,tre.numVagones,tre.numPasajeros,tre.colorSemaforo);
+                        mandarASalrTrenHilo(tren,nombreESA,nombreESLle,lavel,pannell,rl);
 
                     }else if (tre.getColorSemaforo() == 2) {
-                        Tren tren = new Tren();
-                        pannell.add(lavel);
-                        tren.setNombreEstacionSalida(nombreESA);
-                        tren.setNombreEstacionLLegada(nombreESLle);
-                        tren.setEtiquetaTren(lavel);
-                        tren.setRl(rl);
-                        tren.start();
+                        Tren tren = new Tren(tre.codTren,tre.numVagones,tre.numPasajeros,tre.colorSemaforo);
+                        mandarASalrTrenHilo(tren,nombreESA,nombreESLle,lavel,pannell,rl);
                     } else {
                         JOptionPane.showMessageDialog(null,"no hay trenes en condiciones de salida");
                     }
                 }else {
                     tre = rl.getEstacionB().getParqueo().element();
                     if (tre.getColorSemaforo()== 1){
-                        Tren tren = new Tren();
-                        pannell.add(lavel);
-                        tren.setNombreEstacionSalida(nombreESA);
-                        tren.setNombreEstacionLLegada(nombreESLle);
-                        tren.setEtiquetaTren(lavel);
-                        tren.setRl(rl);
-                        tren.start();
+                        Tren tren = new Tren(tre.codTren,tre.numVagones,tre.numPasajeros,tre.colorSemaforo);
+                        mandarASalrTrenHilo(tren,nombreESA,nombreESLle,lavel,pannell,rl);
                     }else if (tre.getColorSemaforo() == 2) {
-                        Tren tren = new Tren();
-                        pannell.add(lavel);
-                        tren.setNombreEstacionSalida(nombreESA);
-                        tren.setNombreEstacionLLegada(nombreESLle);
-                        tren.setEtiquetaTren(lavel);
-                        tren.setRl(rl);
-                        tren.start();
+                        Tren tren = new Tren(tre.codTren,tre.numVagones,tre.numPasajeros,tre.colorSemaforo);
+                        mandarASalrTrenHilo(tren,nombreESA,nombreESLle,lavel,pannell,rl);
                     } else {
                         JOptionPane.showMessageDialog(null,"no hay trenes en condiciones de salida");
                     }
@@ -177,47 +150,27 @@ public class Mapa extends JFrame implements ChangeListener {
                 JOptionPane.showMessageDialog(null,"No existe trenees en la estacion"+rl.getEstacionA().getDirEstacion());
             }
         }else if (rl.getEstacionB().getDirEstacion().equals(nombreESA)) {
-            if (rl.getEstacionA().getParqueo().size() >= 1){
+            if (rl.getEstacionB().getParqueo().size() >= 1){
                 Tren tre ;
-                if (rl.getEstacionA().getDirEstacion().equals(nombreESA)) {
-                    tre = rl.getEstacionA().getParqueo().element();
+                if (rl.getEstacionB().getDirEstacion().equals(nombreESA)) {
+                    tre = rl.getEstacionB().getParqueo().element();
                     if (tre.getColorSemaforo()== 1){
-                        Tren tren = new Tren();
-                        pannell.add(lavel);
-                        tren.setNombreEstacionSalida(nombreESA);
-                        tren.setNombreEstacionLLegada(nombreESLle);
-                        tren.setEtiquetaTren(lavel);
-                        tren.setRl(rl);
-                        tren.start();
+                        Tren tren = new Tren(tre.codTren,tre.numVagones,tre.numPasajeros,tre.colorSemaforo);
+                        mandarASalrTrenHilo(tren,nombreESA,nombreESLle,lavel,pannell,rl);
                     }else if (tre.getColorSemaforo() == 2) {
-                        Tren tren = new Tren();
-                        pannell.add(lavel);
-                        tren.setNombreEstacionSalida(nombreESA);
-                        tren.setNombreEstacionLLegada(nombreESLle);
-                        tren.setEtiquetaTren(lavel);
-                        tren.setRl(rl);
-                        tren.start();
+                        Tren tren = new Tren(tre.codTren,tre.numVagones,tre.numPasajeros,tre.colorSemaforo);
+                        mandarASalrTrenHilo(tren,nombreESA,nombreESLle,lavel,pannell,rl);
                     } else {
                         JOptionPane.showMessageDialog(null,"no hay trenes en condiciones de salida");
                     }
                 }else {
                     tre = rl.getEstacionB().getParqueo().element();
                     if (tre.getColorSemaforo()== 1){
-                        Tren tren = new Tren();
-                        pannell.add(lavel);
-                        tren.setNombreEstacionSalida(nombreESA);
-                        tren.setNombreEstacionLLegada(nombreESLle);
-                        tren.setEtiquetaTren(lavel);
-                        tren.setRl(rl);
-                        tren.start();
+                        Tren tren = new Tren(tre.codTren,tre.numVagones,tre.numPasajeros,tre.colorSemaforo);
+                        mandarASalrTrenHilo(tren,nombreESA,nombreESLle,lavel,pannell,rl);
                     }else if (tre.getColorSemaforo() == 2) {
-                        Tren tren = new Tren();
-                        pannell.add(lavel);
-                        tren.setNombreEstacionSalida(nombreESA);
-                        tren.setNombreEstacionLLegada(nombreESLle);
-                        tren.setEtiquetaTren(lavel);
-                        tren.setRl(rl);
-                        tren.start();
+                        Tren tren = new Tren(tre.codTren,tre.numVagones,tre.numPasajeros,tre.colorSemaforo);
+                        mandarASalrTrenHilo(tren,nombreESA,nombreESLle,lavel,pannell,rl);
 
                     } else {
                         JOptionPane.showMessageDialog(null,"no hay trenes en condiciones de salida");
@@ -227,10 +180,16 @@ public class Mapa extends JFrame implements ChangeListener {
                 JOptionPane.showMessageDialog(null,"No existe trenees en la estacion"+rl.getEstacionB().getDirEstacion());
             }
         }
-
-
     }
 
+    private void mandarASalrTrenHilo(Tren tren,String nombreESA,String nombreESLle,JLabel lavel,JPanel pannell,Riel rl) {
+        pannell.add(lavel);
+        tren.setNombreEstacionSalida(nombreESA);
+        tren.setNombreEstacionLLegada(nombreESLle);
+        tren.setEtiquetaTren(lavel);
+        tren.setRl(rl);
+        tren.start();
+    }
     @Override
     public void stateChanged(ChangeEvent e) {
         if (jCheckBox.isSelected() == true) {
@@ -250,7 +209,9 @@ public class Mapa extends JFrame implements ChangeListener {
         labEstacion.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(frame,"Nombre de la estacion: "+estacion.getDirEstacion(),"Prueba",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(frame,"Nombre de la estacion: "+estacion.getDirEstacion()+"\n"+"Trenes en alamcen: "+estacion.getParqueo().size()
+
+                        ,"Prueba",JOptionPane.INFORMATION_MESSAGE);
             }
 
             @Override

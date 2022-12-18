@@ -13,9 +13,8 @@ public class RecorrerTren {
         cssvv = csv.read(path);
         rieles = csv.rielesAlmacen(cssvv);
     }
-    public boolean salirTrenEstaccion(Riel rl, String nombresEst) {
+    public void salirTrenEstaccion(Riel rl, String nombresEst) {
 
-        boolean res;
         Semaforo colorTren = new Semaforo();
 
         Estacion estA = rl.getEstacionA();
@@ -28,7 +27,6 @@ public class RecorrerTren {
 
             csv.overWrite(rl.numRiel,dir,over.toString());
             modificarLosDemasRieles(rl,estA,estB);
-            res = true;
         }else{
             Tren var = estB.parqueo.poll();
             var.setColorSemaforo(colorTren.cambioSemaforo(var.getColorSemaforo()));
@@ -37,9 +35,8 @@ public class RecorrerTren {
 
             csv.overWrite(rl.numRiel,dir,over.toString());
             modificarLosDemasRieles(rl,estB,estA);
-            res = false;
+
         }
-        return res;
     }
     public boolean trenSaleDeEsatacion(Riel rl,String nombreEstacionSalida) {
         boolean res;
@@ -47,8 +44,9 @@ public class RecorrerTren {
         Estacion estB = rl.getEstacionB();
         if (estA.getDirEstacion().equals(nombreEstacionSalida)) {
             res = true;
+        }else {
+            res = false;
         }
-        res = false;
         return res;
     }
     public void modificarLosDemasRieles(Riel rl,Estacion estA,Estacion estB) {/// pare aqui resolver mañana

@@ -35,16 +35,15 @@ public class Tren extends Thread implements Comparable<Tren> {
         boolean direccion = recoT.trenSaleDeEsatacion(this.getRl(),this.nombreEstacionSalida);
         double pendiente =pendienteRecta(rl.getEstacionA().getPosX(),rl.getEstacionA().getPosY(),rl.getEstacionB().getPosX(),rl.getEstacionB().getPosY());
         if( pendiente == 0){
-            System.out.println(pendiente);
+            recoT.salirTrenEstaccion(rl,nombreEstacionSalida);
             pendienteCero(direccion);
+            System.out.println(this.toString());
+
         } else {
-            System.out.println(direccion);
+            recoT.salirTrenEstaccion(rl,nombreEstacionSalida);
             pendienteInfinito(direccion);
         }
-
-        recoT.salirTrenEstaccion(this.getRl(),this.nombreEstacionSalida);
-        System.out.println(direccion);
-        //map.remove(etiquetaTren);
+        map.remove(etiquetaTren);
     }
     public void raton(JLabel lv,Estacion salida,Estacion llegada) {
         lv.addMouseListener(new MouseListener() {
@@ -53,8 +52,9 @@ public class Tren extends Thread implements Comparable<Tren> {
                 Semaforo sema = new Semaforo();
 
                 ImageIcon var = sema.funcionarSemaforo(colorSemaforo);
-                JOptionPane.showMessageDialog(frame,"Estacion de Salida: "+salida.getDirEstacion()+"\n"+"Estacion a la llegada: "+ llegada.getDirEstacion(),
-                        "Informacion de la estacion",
+                JOptionPane.showMessageDialog(frame,"Estacion de Salida: "+salida.getDirEstacion()+"\n"+"Estacion a la llegada: "+ llegada.getDirEstacion()+"\n"
+                        +"El codigo del tren: "+codTren+"\n"+"Nemero de vagones tren: "+numVagones+"\n"+"Numero de pasajeros tren: "+numPasajeros
+                        ,"Informacion de la estacion",
                         JOptionPane.INFORMATION_MESSAGE,var);
             }
             @Override
@@ -69,6 +69,8 @@ public class Tren extends Thread implements Comparable<Tren> {
     }
 
     private void pendienteInfinito(boolean dir) {
+        Semaforo sema = new Semaforo();
+
         if (dir == true) {
             int xx = rl.getEstacionA().getPosX();
             int yy = rl.getEstacionA().getPosY();
