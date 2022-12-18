@@ -5,6 +5,8 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -12,15 +14,20 @@ import java.util.ArrayList;
 public class Mapa extends JFrame implements ChangeListener {
     
     CSVManager csv = CSVManager.getInstance();
-
+    static final String path = "Rieles.csv";
     ArrayList<String[]> ccssvv;
     ArrayList<Riel> rieel;
-    ArrayList<Tren> treenes;
-    ArrayList<Estacion> stations;
     JCheckBox jCheckBox;
     JPanel panel;
     Microfono micro;
+    JTextField cajaEsSalida;
+    JTextField cajaEsLlegada;
+    JButton JBtn_SalirTren;
+    String salida="";
+    String llegada="";
     public Mapa() {
+        ccssvv = csv.read(path);
+        rieel = csv.rielesAlmacen(ccssvv);
         setSize(1000,800);
         setLocation(100,100);
         setLocationRelativeTo(null);
@@ -31,15 +38,10 @@ public class Mapa extends JFrame implements ChangeListener {
     }
 
     private void iniciarComponentes() {
-
-        ccssvv = csv.read("Rieles.csv");
-        rieel = csv.rielesAlmacen(ccssvv);
         micro = new Microfono();
         //micro.inicializarMicro();
         RecorrerTren recoT = new RecorrerTren();
-        jCheckBox = new JCheckBox("Microfono");
-        jCheckBox.setBounds(10,10,100,20);
-        jCheckBox.addChangeListener(this);
+
         Frame frame = this;
         panel = new JPanel() {
             @Override
@@ -59,6 +61,10 @@ public class Mapa extends JFrame implements ChangeListener {
                 }
             }
         };
+
+        colocarCajasDeTexto();
+
+
         panel.add(jCheckBox);
 
         Tren.setMap(panel);
@@ -109,12 +115,33 @@ public class Mapa extends JFrame implements ChangeListener {
         Riel rrll1 = recoT.encontrarRiel(estaci1,estaci);
         //System.out.println(rrll1.toString());
         //mandarASalir(rrll,estaci,estaci1,nn,panel);
-        mandarASalir(rrll1,estaci1,estaci,nn1,panel);
- 
+        //mandarASalir(rrll1,estaci1,estaci,nn1,panel);
+
 
     }
 
+    private void colocarCajasDeTexto() {
+        
+        cajaEsSalida = new JTextField();
+        cajaEsSalida.setBounds(200,40,100,30);
+        panel.add(cajaEsSalida);
+        cajaEsLlegada = new JTextField();
+        cajaEsLlegada.setBounds(325,40,100,30);
+        panel.add(cajaEsLlegada);
+        JBtn_SalirTren = new JButton("SALIR!!!");
+        JBtn_SalirTren.setBounds(450,40,100,30);
+        panel.add(JBtn_SalirTren);
+        JBtn_SalirTren.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //panel.setBackground(Color.BLACK);
+                salida = cajaEsSalida.getText();
+                llegada = cajaEsLlegada.getText();
+                System.out.println(salida+ "   "+llegada);
+            }
+        });
 
+    }
     public void mandarASalir(Riel rl,String nombreESA,String nombreESLle,JLabel lavel,JPanel pannell) {
 
         if (rl.getEstacionA().getDirEstacion().equals(nombreESA)){
