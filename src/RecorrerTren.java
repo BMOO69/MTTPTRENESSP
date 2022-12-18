@@ -16,11 +16,13 @@ public class RecorrerTren {
     public boolean salirTrenEstaccion(Riel rl, String nombresEst) {
 
         boolean res;
+        Semaforo colorTren = new Semaforo();
 
         Estacion estA = rl.getEstacionA();
         Estacion estB = rl.getEstacionB();
         if (estA.getDirEstacion().equals(nombresEst)) {
             Tren salido = estA.parqueo.poll();
+            salido.setColorSemaforo(colorTren.cambioSemaforo(salido.getColorSemaforo()));
             estB.almacenarTren(salido);
             Riel over = new Riel(rl.numRiel,estA,estB);
 
@@ -29,6 +31,7 @@ public class RecorrerTren {
             res = true;
         }else{
             Tren var = estB.parqueo.poll();
+            var.setColorSemaforo(colorTren.cambioSemaforo(var.getColorSemaforo()));
             estA.almacenarTren(var);
             Riel over = new Riel(rl.numRiel,estA,estB);
 
@@ -36,6 +39,16 @@ public class RecorrerTren {
             modificarLosDemasRieles(rl,estB,estA);
             res = false;
         }
+        return res;
+    }
+    public boolean trenSaleDeEsatacion(Riel rl,String nombreEstacionSalida) {
+        boolean res;
+        Estacion estA = rl.getEstacionA();
+        Estacion estB = rl.getEstacionB();
+        if (estA.getDirEstacion().equals(nombreEstacionSalida)) {
+            res = true;
+        }
+        res = false;
         return res;
     }
     public void modificarLosDemasRieles(Riel rl,Estacion estA,Estacion estB) {/// pare aqui resolver mañana

@@ -89,14 +89,15 @@ public class Mapa extends JFrame implements ChangeListener {
                 nombreEtiB.setBounds(i.getEstacionB().getPosX()-50,i.getEstacionB().getPosY()-60,100,10);
                 panel.add(nombreEtiB);
                 panel.add(etiB);
+                ratonEstacion(etiB,frame,i.getEstacionB());
             }
         }
         ImageIcon imagenOK = new ImageIcon("check.png");
         ImageIcon im = new ImageIcon("trenn.jpg");
         Tren.imagenOK= imagenOK;
         Icon icono = new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH));
-        String estaci = "Quillacollo";
-        String estaci1 = "Tarata";
+        String estaci = "Sacaba";
+        String estaci1 = "Quillacollo";
 
         JLabel nn = new JLabel();
         JLabel nn1 = new JLabel();
@@ -108,10 +109,10 @@ public class Mapa extends JFrame implements ChangeListener {
         nn1.setIcon(icono);
         recoT.cargarCSV("Rieles.csv");
         Riel rrll=recoT.encontrarRiel(estaci,estaci1);
-        //Riel rrll1 = recoT.encontrarRiel(estaci,estaci1);
+        Riel rrll1 = recoT.encontrarRiel(estaci1,estaci);
         //System.out.println(rrll1.toString());
         mandarASalir(rrll,estaci,estaci1,nn,panel);
-      //mandarASalir(rrll1,estaci1,nn1,panel);
+        mandarASalir(rrll1,estaci1,estaci,nn1,panel);
         /*
         if (prueba.equals("Cercado")) {
             mandarASalir(rrll,estaci,nn,panel);
@@ -119,39 +120,115 @@ public class Mapa extends JFrame implements ChangeListener {
         if (prueba.equals("Tarata")) {
             mandarASalir(rrll1,estaci1,nn1,panel);
         }*/
-        //
-        //
 
-
-       /* nn.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(frame,"Estacion: "+estaci,
-                        "Informacion de la estacion",
-                        JOptionPane.INFORMATION_MESSAGE,imagenOK);
-            }
-            @Override
-            public void mousePressed(MouseEvent e) {}
-            @Override
-            public void mouseReleased(MouseEvent e) {}
-            @Override
-            public void mouseEntered(MouseEvent e) {}
-            @Override
-            public void mouseExited(MouseEvent e) {}
-        });
-       */
     }
     public void mandarASalir(Riel rl,String nombreESA,String nombreESLle,JLabel lavel,JPanel pannell) {
-        Tren t = new Tren("adas",3,90);
-        lavel.setBounds(250,350,50,50);
 
-        pannell.add(lavel);
+        if (rl.getEstacionA().getDirEstacion().equals(nombreESA)){
+            if (rl.getEstacionA().getParqueo().size()>=1){
+                Tren tre ;
+                if (rl.getEstacionA().getDirEstacion().equals(nombreESA)) {
+                    tre = rl.getEstacionA().getParqueo().element();
+                    if (tre.getColorSemaforo()== 1){
+                        Tren tren = new Tren();
+                        pannell.add(lavel);
+                        tren.setNombreEstacionSalida(nombreESA);
+                        tren.setNombreEstacionLLegada(nombreESLle);
+                        tren.setEtiquetaTren(lavel);
+                        tren.setRl(rl);
+                        tren.start();
 
-        t.setNombreEstacionSalida(nombreESA);
-        t.setNombreEstacionLLegada(nombreESLle);
-        t.setEtiquetaTren(lavel);
-        t.setRl(rl);
-        t.start();
+                    }else if (tre.getColorSemaforo() == 2) {
+                        Tren tren = new Tren();
+                        pannell.add(lavel);
+                        tren.setNombreEstacionSalida(nombreESA);
+                        tren.setNombreEstacionLLegada(nombreESLle);
+                        tren.setEtiquetaTren(lavel);
+                        tren.setRl(rl);
+                        tren.start();
+                    } else {
+                        JOptionPane.showMessageDialog(null,"no hay trenes en condiciones de salida");
+                    }
+                }else {
+                    tre = rl.getEstacionB().getParqueo().element();
+                    if (tre.getColorSemaforo()== 1){
+                        Tren tren = new Tren();
+                        pannell.add(lavel);
+                        tren.setNombreEstacionSalida(nombreESA);
+                        tren.setNombreEstacionLLegada(nombreESLle);
+                        tren.setEtiquetaTren(lavel);
+                        tren.setRl(rl);
+                        tren.start();
+                    }else if (tre.getColorSemaforo() == 2) {
+                        Tren tren = new Tren();
+                        pannell.add(lavel);
+                        tren.setNombreEstacionSalida(nombreESA);
+                        tren.setNombreEstacionLLegada(nombreESLle);
+                        tren.setEtiquetaTren(lavel);
+                        tren.setRl(rl);
+                        tren.start();
+                    } else {
+                        JOptionPane.showMessageDialog(null,"no hay trenes en condiciones de salida");
+                    }
+
+                }
+
+            }else {
+                JOptionPane.showMessageDialog(null,"No existe trenees en la estacion"+rl.getEstacionA().getDirEstacion());
+            }
+        }else if (rl.getEstacionB().getDirEstacion().equals(nombreESA)) {
+            if (rl.getEstacionA().getParqueo().size() >= 1){
+                Tren tre ;
+                if (rl.getEstacionA().getDirEstacion().equals(nombreESA)) {
+                    tre = rl.getEstacionA().getParqueo().element();
+                    if (tre.getColorSemaforo()== 1){
+                        Tren tren = new Tren();
+                        pannell.add(lavel);
+                        tren.setNombreEstacionSalida(nombreESA);
+                        tren.setNombreEstacionLLegada(nombreESLle);
+                        tren.setEtiquetaTren(lavel);
+                        tren.setRl(rl);
+                        tren.start();
+                    }else if (tre.getColorSemaforo() == 2) {
+                        Tren tren = new Tren();
+                        pannell.add(lavel);
+                        tren.setNombreEstacionSalida(nombreESA);
+                        tren.setNombreEstacionLLegada(nombreESLle);
+                        tren.setEtiquetaTren(lavel);
+                        tren.setRl(rl);
+                        tren.start();
+                    } else {
+                        JOptionPane.showMessageDialog(null,"no hay trenes en condiciones de salida");
+                    }
+                }else {
+                    tre = rl.getEstacionB().getParqueo().element();
+                    if (tre.getColorSemaforo()== 1){
+                        Tren tren = new Tren();
+                        pannell.add(lavel);
+                        tren.setNombreEstacionSalida(nombreESA);
+                        tren.setNombreEstacionLLegada(nombreESLle);
+                        tren.setEtiquetaTren(lavel);
+                        tren.setRl(rl);
+                        tren.start();
+                    }else if (tre.getColorSemaforo() == 2) {
+                        Tren tren = new Tren();
+                        pannell.add(lavel);
+                        tren.setNombreEstacionSalida(nombreESA);
+                        tren.setNombreEstacionLLegada(nombreESLle);
+                        tren.setEtiquetaTren(lavel);
+                        tren.setRl(rl);
+                        tren.start();
+
+                    } else {
+                        JOptionPane.showMessageDialog(null,"no hay trenes en condiciones de salida");
+                    }
+                }
+            }else {
+                JOptionPane.showMessageDialog(null,"No existe trenees en la estacion"+rl.getEstacionB().getDirEstacion());
+            }
+        }
+
+
     }
 
     @Override
@@ -168,6 +245,7 @@ public class Mapa extends JFrame implements ChangeListener {
             micro.apagarMicrofono();
         }
     }
+
     public void ratonEstacion(JLabel labEstacion,Frame frame,Estacion estacion){
         labEstacion.addMouseListener(new MouseListener() {
             @Override

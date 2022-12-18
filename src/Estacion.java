@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Estacion {
@@ -22,7 +23,7 @@ public class Estacion {
 
     //public ArrayList<Tren> parqueo = new ArrayList<>();
 
-    public Queue<Tren> parqueo = new LinkedList<>();
+    public Queue<Tren> parqueo = new PriorityQueue<>();
     public Estacion() {}
 
     public Estacion(String dirEstacion, int maxTrenes, int posX, int posY) {
@@ -97,5 +98,9 @@ public class Estacion {
 
     public void setEtiquetaEstacion(JLabel etiquetaEstacion) {
         this.etiquetaEstacion = etiquetaEstacion;
+    }
+
+    public Queue<Tren> getParqueo() {
+        return parqueo;
     }
 }

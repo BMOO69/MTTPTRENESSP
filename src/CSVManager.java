@@ -93,21 +93,27 @@ public class CSVManager {
         es.setPosY(Integer.parseInt(componentes[5]));
 
         Queue<Tren> trenes;
-        trenes = obtenerTrenes(componentes[6]);
+        try {
+            trenes = obtenerTrenes(componentes[6]);
+        }catch (ArrayIndexOutOfBoundsException e) {
+            trenes = new PriorityQueue<>();
+        }
+
         es.setParqueo(trenes);
         return es;
     }
 
     public Queue<Tren> obtenerTrenes(String cad){
         String[] array = cad.split(",");
-        Queue<Tren> res = new LinkedList<>();
+        Queue<Tren> res = new PriorityQueue<>();
         if (array.length !=0){
             for (int i = 0; i<array.length;i++) {
                 String[] var = array[i].split("#");
                 String codT = var[0];
                 int numV = Integer.parseInt(var[1]);
                 int nump = Integer.parseInt(var[2]);
-                Tren nuevo = new Tren(codT,numV,nump);
+                int color = Integer.parseInt(var[3]);
+                Tren nuevo = new Tren(codT,numV,nump,color);
                 res.add(nuevo);
             }
         }

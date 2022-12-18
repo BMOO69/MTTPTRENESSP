@@ -2,12 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Comparator;
 
-public class Tren extends Thread{
+public class Tren extends Thread implements Comparable<Tren> {
 
+    public static final String DIRRIELES = "Rieles.csv";
     public String codTren;
     public int numPasajeros;
     public int numVagones;
+    public int colorSemaforo;
     public static ImageIcon imagenOK;
     JLabel etiquetaTren;
     Frame frame;
@@ -16,18 +19,20 @@ public class Tren extends Thread{
     String nombreEstacionSalida;
     String nombreEstacionLLegada;
     public static JPanel map;
-    //RecorrerTren reco  = new RecorrerTren("Rieles.csv");
-    public Tren(String codTren, int numVagones, int numPasajeros) {
+    public Tren(){}
+    public Tren(String codTren,int numVagones, int numPasajeros,int colorSemaforo ) {
         this.codTren = codTren;
         this.numVagones = numVagones;
         this.numPasajeros = numPasajeros;
+        this.colorSemaforo = colorSemaforo;
     }
 
     @Override
     public void run() {
         RecorrerTren recoT = new RecorrerTren();
         recoT.cargarCSV("Rieles.csv");
-        boolean direccion = recoT.salirTrenEstaccion(this.getRl(), this.nombreEstacionSalida);
+        //boolean direccion = recoT.salirTrenEstaccion(this.getRl(), this.nombreEstacionSalida);
+        boolean direccion = recoT.trenSaleDeEsatacion(this.getRl(),this.nombreEstacionSalida);
         double pendiente =pendienteRecta(rl.getEstacionA().getPosX(),rl.getEstacionA().getPosY(),rl.getEstacionB().getPosX(),rl.getEstacionB().getPosY());
         if( pendiente == 0){
             System.out.println(pendiente);
@@ -37,6 +42,7 @@ public class Tren extends Thread{
             pendienteInfinito(direccion);
         }
 
+        recoT.salirTrenEstaccion(this.getRl(),this.nombreEstacionSalida);
         System.out.println(direccion);
         //map.remove(etiquetaTren);
     }
@@ -44,9 +50,12 @@ public class Tren extends Thread{
         lv.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                Semaforo sema = new Semaforo();
+
+                ImageIcon var = sema.funcionarSemaforo(colorSemaforo);
                 JOptionPane.showMessageDialog(frame,"Estacion de Salida: "+salida.getDirEstacion()+"\n"+"Estacion a la llegada: "+ llegada.getDirEstacion(),
                         "Informacion de la estacion",
-                        JOptionPane.INFORMATION_MESSAGE,imagenOK);
+                        JOptionPane.INFORMATION_MESSAGE,var);
             }
             @Override
             public void mousePressed(MouseEvent e) {}
@@ -74,6 +83,7 @@ public class Tren extends Thread{
                 yy = yy + 40;
                 etiquetaTren.setBounds(xx, yy, 50, 50);
             }
+
         }else {
             int xx = rl.getEstacionB().getPosX();
             int yy = rl.getEstacionB().getPosY();
@@ -136,9 +146,12 @@ public class Tren extends Thread{
         }
     }
 
+    private void cambiarEstadoTren(){
+
+    }
     public String toString() {
         String res;
-        res = codTren + "#" + numVagones + "#" + numPasajeros;
+        res = codTren + "#" + numVagones + "#" + numPasajeros+ "#" + colorSemaforo;
         return  res;
     }
 
@@ -177,7 +190,6 @@ public class Tren extends Thread{
     public void setRl(Riel rl) {
         this.rl = rl;
     }
-
     public static JPanel getMap() {
         return map;
     }
@@ -208,5 +220,18 @@ public class Tren extends Thread{
 
     public void setFrame(Frame frame) {
         this.frame = frame;
+    }
+
+    public int getColorSemaforo() {
+        return colorSemaforo;
+    }
+
+    public void setColorSemaforo(int colorSemaforo) {
+        this.colorSemaforo = colorSemaforo;
+    }
+
+    @Override
+    public int compareTo(Tren o) {
+        return o.colorSemaforo > this.colorSemaforo ? 1: -1;
     }
 }
