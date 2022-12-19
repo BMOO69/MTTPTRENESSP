@@ -15,14 +15,14 @@ public <sentence> =
 [<dato10>]
 [<dato11>];
 
-<dato0>=Terminar;
-<dato1>=Salida Tren;
-<dato2>=Crear Tren;
-<dato3>=Tarata;
-<dato4>=Quillacollo;
-<dato5>=Sacaba;
-<dato6>=Cercado;
-<dato7>=ver;
+<dato0>=Salir Tren Sacaba Cercado;
+<dato1>=Salir Tren Cercado Sacaba;
+<dato2>=Salir Tren Cercado Tarata;
+<dato3>=Salir Tren Tarata Cercado;
+<dato4>=salir Tren Tarata Quillacollo;
+<dato5>=salir Tren Quillacollo Tarata;
+<dato6>=Salir Tren Sacaba Quillacollo;
+<dato7>=Salir Tren Quillacollo Sacaba;
 <dato8>=Hola;
 <dato9>=Crear texto swing;
 <dato10>=Dibujar diamnte swing;

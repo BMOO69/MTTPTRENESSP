@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="cgjsapi" level="project" />
+    <orderEntry type="library" name="Reconocedor De Voz JavaJoquin" level="project" />
   </component>
 </module>

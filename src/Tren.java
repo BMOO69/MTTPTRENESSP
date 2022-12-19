@@ -30,15 +30,11 @@ public class Tren extends Thread implements Comparable<Tren> {
     @Override
     public void run() {
         RecorrerTren recoT = new RecorrerTren(DIRRIELES);
-        //recoT.cargarCSV("Rieles.csv");
-        //boolean direccion = recoT.salirTrenEstaccion(this.getRl(), this.nombreEstacionSalida);
         boolean direccion = recoT.trenSaleDeEsatacion(this.getRl(),this.nombreEstacionSalida);
         double pendiente =pendienteRecta(rl.getEstacionA().getPosX(),rl.getEstacionA().getPosY(),rl.getEstacionB().getPosX(),rl.getEstacionB().getPosY());
         if( pendiente == 0){
             recoT.salirTrenEstaccion(rl,nombreEstacionSalida);
             pendienteCero(direccion);
-            System.out.println(this.toString());
-
         } else {
             recoT.salirTrenEstaccion(rl,nombreEstacionSalida);
             pendienteInfinito(direccion);
@@ -70,12 +66,10 @@ public class Tren extends Thread implements Comparable<Tren> {
 
     private void pendienteInfinito(boolean dir) {
         Semaforo sema = new Semaforo();
-
         if (dir == true) {
             int xx = rl.getEstacionA().getPosX();
             int yy = rl.getEstacionA().getPosY();
             raton(etiquetaTren, rl.getEstacionA(), rl.getEstacionB());
-
             while (yy <= rl.getEstacionB().getPosY()) {
                 try {
                     Thread.sleep(1000);
@@ -85,12 +79,10 @@ public class Tren extends Thread implements Comparable<Tren> {
                 yy = yy + 40;
                 etiquetaTren.setBounds(xx, yy, 50, 50);
             }
-
         }else {
             int xx = rl.getEstacionB().getPosX();
             int yy = rl.getEstacionB().getPosY();
             raton(etiquetaTren,rl.getEstacionB(),rl.getEstacionA());
-
             while (yy >= rl.getEstacionA().getPosY()) {
                 try {
                     Thread.sleep(1000);
@@ -117,13 +109,10 @@ public class Tren extends Thread implements Comparable<Tren> {
         if (dir == true) {
             int xx = rl.getEstacionA().getPosX();
             int yy = rl.getEstacionA().getPosY();
-
             raton(etiquetaTren,rl.getEstacionA(),rl.getEstacionB());
-
             while (xx <= rl.getEstacionB().getPosX()) {
                 try {
                     Thread.sleep(1000);
-
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -134,11 +123,9 @@ public class Tren extends Thread implements Comparable<Tren> {
             int xx = rl.getEstacionB().getPosX();
             int yy = rl.getEstacionB().getPosY();
             raton(etiquetaTren,rl.getEstacionB(),rl.getEstacionA());
-
             while (xx >= rl.getEstacionA().getPosX()) {
                 try {
                     Thread.sleep(1000);
-
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

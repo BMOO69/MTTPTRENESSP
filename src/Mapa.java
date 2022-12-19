@@ -12,13 +12,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-public class Mapa extends JFrame implements ChangeListener {
+public class Mapa extends JFrame implements ActionListener {
     
     CSVManager csv = CSVManager.getInstance();
     static final String path = "Rieles.csv";
     ArrayList<String[]> ccssvv;
     ArrayList<Riel> rieel;
-    JCheckBox jCheckBox;
+    //JCheckBox jCheckBox;
     JPanel panel;
     Microfono micro;
     JTextField cajaEsSalida;
@@ -31,6 +31,9 @@ public class Mapa extends JFrame implements ChangeListener {
     Frame frame;
     RecorrerTren recoT;
     AgregarTren agr;
+    Micro mr;
+    Microfono microfono;
+    JRadioButton radioB;
     public Mapa() {
         ccssvv = csv.read(path);
         rieel = csv.rielesAlmacen(ccssvv);
@@ -43,6 +46,8 @@ public class Mapa extends JFrame implements ChangeListener {
         im = new ImageIcon("trenn.jpg");
         icono = new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH));
         agr = new AgregarTren();
+        mr = new Micro();
+        microfono = new Microfono();
         //this.getContentPane().setBackground(Color.green);
         iniciarComponentes();
     }
@@ -78,7 +83,6 @@ public class Mapa extends JFrame implements ChangeListener {
         panel.setBackground(Color.green);
         panel.setLayout(null);
         this.getContentPane().add(panel);
-        //JLabel etiqueta = new JLabel();
 
         ImageIcon imagen = new ImageIcon("trainStation.png");
         if (!rieel.isEmpty()){
@@ -104,54 +108,6 @@ public class Mapa extends JFrame implements ChangeListener {
                 ratonEstacion(etiB,frame,i.getEstacionB().getDirEstacion());
             }
         }
-    }
-
-    private void colocarCajasDeTexto() {
-        JLabel letSa = new JLabel("Salida!!");
-        letSa.setBounds(200,20,100,20);
-        panel.add(letSa);
-        cajaEsSalida = new JTextField("SALIDA");
-        cajaEsSalida.setBounds(200,40,100,30);
-        panel.add(cajaEsSalida);
-        JLabel letLle = new JLabel("Llegada!!");
-        letLle.setBounds(325,20,100,20);
-        panel.add(letLle);
-        cajaEsLlegada = new JTextField("LLEGADA");
-        cajaEsLlegada.setBounds(325,40,100,30);
-        panel.add(cajaEsLlegada);
-        JBtn_SalirTren = new JButton("SALIR!!!");
-        JBtn_SalirTren.setBounds(450,40,100,30);
-        panel.add(JBtn_SalirTren);
-        //panel.add(jCheckBox);
-        JBtn_SalirTren.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //panel.setBackground(Color.BLACK);
-                salida = cajaEsSalida.getText();
-                llegada = cajaEsLlegada.getText();
-                System.out.println(salida+ "   "+llegada);
-
-                Riel rl = recoT.encontrarRiel(salida,llegada);
-                if  (rl.getNumRiel() != 0) {
-                    JLabel lavel = new JLabel();
-                    lavel.setIcon(icono);
-                    mandarASalir(rl,salida,llegada,lavel,panel);
-                }
-
-            }
-        });
-
-    }
-    private void colocarElementosDeIngresoTren(){
-        JButton agregar = new JButton("Agregar Tren");
-        agregar.setBounds(10,10,150,30);
-        panel.add(agregar);
-        agregar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                agr.setVisible(true);
-            }
-        });
     }
     public void mandarASalir(Riel rl,String nombreESA,String nombreESLle,JLabel lavel,JPanel pannell) {
 
@@ -181,9 +137,7 @@ public class Mapa extends JFrame implements ChangeListener {
                     } else {
                         JOptionPane.showMessageDialog(null,"no hay trenes en condiciones de salida");
                     }
-
                 }
-
             }else {
                 JOptionPane.showMessageDialog(null,"No existe trenees en la estacion"+rl.getEstacionA().getDirEstacion());
             }
@@ -209,7 +163,6 @@ public class Mapa extends JFrame implements ChangeListener {
                     }else if (tre.getColorSemaforo() == 2) {
                         Tren tren = new Tren(tre.codTren,tre.numVagones,tre.numPasajeros,tre.colorSemaforo);
                         mandarASalrTrenHilo(tren,nombreESA,nombreESLle,lavel,pannell,rl);
-
                     } else {
                         JOptionPane.showMessageDialog(null,"no hay trenes en condiciones de salida");
                     }
@@ -228,20 +181,78 @@ public class Mapa extends JFrame implements ChangeListener {
         tren.setRl(rl);
         tren.start();
     }
-    @Override
-    public void stateChanged(ChangeEvent e) {
-        if (jCheckBox.isSelected() == true) {
-            /*try {
-                micro.encerderMicrofono();
-            } catch (AudioException ex) {
-                throw new RuntimeException(ex);
+    private void colocarCajasDeTexto() {
+        JLabel letSa = new JLabel("Salida!!");
+        letSa.setBounds(200,20,100,20);
+        panel.add(letSa);
+        cajaEsSalida = new JTextField("SALIDA");
+        cajaEsSalida.setBounds(200,40,100,30);
+        panel.add(cajaEsSalida);
+        JLabel letLle = new JLabel("Llegada!!");
+        letLle.setBounds(325,20,100,20);
+        panel.add(letLle);
+        cajaEsLlegada = new JTextField("LLEGADA");
+        cajaEsLlegada.setBounds(325,40,100,30);
+        panel.add(cajaEsLlegada);
+        JBtn_SalirTren = new JButton("SALIR!!!");
+        JBtn_SalirTren.setBounds(450,40,100,30);
+        panel.add(JBtn_SalirTren);
+        //panel.add(jCheckBox);
+        radioB =new JRadioButton("Microfono");
+        radioB.setBounds(0,100,60,30);
+        panel.add(radioB);
+        radioB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (radioB.isSelected()){
+                    mr.iniciar();
+                }
+                if (!radioB.isSelected()) {
+                    mr.apagar();
+                }
             }
-            */
+        });
+        JBtn_SalirTren.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                salida = cajaEsSalida.getText();
+                llegada = cajaEsLlegada.getText();
+                System.out.println(salida+ "   "+llegada);
+
+                Riel rl = recoT.encontrarRiel(salida,llegada);
+                if  (rl.getNumRiel() != 0) {
+                    JLabel lavel = new JLabel();
+                    lavel.setIcon(icono);
+                    mandarASalir(rl,salida,llegada,lavel,panel);
+                }
+            }
+        });
+    }
+    private void colocarElementosDeIngresoTren(){
+        JButton agregar = new JButton("Agregar Tren");
+        agregar.setBounds(10,10,150,30);
+        panel.add(agregar);
+        agregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                agr.setVisible(true);
+            }
+        });
+    }
+    /*@Override
+    /*public void stateChanged(ChangeEvent e) {
+        if (radioB.isSelected() == true) {
+            try {
+                microfono.inicializarMicro();
+                //mr.iniciar();
+            } catch (Exception ex) {
+                System.out.println("error al encender el microfono frame: "+ex.toString());
+            }
         }
         else {
-            micro.apagarMicrofono();
+            mr.apagar();
         }
-    }
+    }*/
 
     public void ratonEstacion(JLabel labEstacion,Frame frame,String estacion){
         labEstacion.addMouseListener(new MouseListener() {
@@ -289,5 +300,15 @@ public class Mapa extends JFrame implements ChangeListener {
             @Override
             public void mouseExited(MouseEvent e) {}
         });
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (radioB.isSelected()){
+            JOptionPane.showMessageDialog(this,"asdasdads");
+        }
+        if (!radioB.isSelected()) {
+            System.out.println("me lapeas");
+        }
     }
 }
