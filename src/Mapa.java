@@ -1,5 +1,6 @@
 import sun.security.jgss.GSSHeader;
 
+import javax.smartcardio.ATR;
 import javax.speech.AudioException;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -29,6 +30,7 @@ public class Mapa extends JFrame implements ChangeListener {
     Icon icono;
     Frame frame;
     RecorrerTren recoT;
+    AgregarTren agr;
     public Mapa() {
         ccssvv = csv.read(path);
         rieel = csv.rielesAlmacen(ccssvv);
@@ -40,6 +42,7 @@ public class Mapa extends JFrame implements ChangeListener {
         frame = this;
         im = new ImageIcon("trenn.jpg");
         icono = new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH));
+        agr = new AgregarTren();
         //this.getContentPane().setBackground(Color.green);
         iniciarComponentes();
     }
@@ -69,9 +72,7 @@ public class Mapa extends JFrame implements ChangeListener {
         };
 
         colocarCajasDeTexto();
-
-
-
+        colocarElementosDeIngresoTren();
 
         Tren.setMap(panel);
         panel.setBackground(Color.green);
@@ -90,8 +91,7 @@ public class Mapa extends JFrame implements ChangeListener {
                 nombreEtiA.setBounds(i.getEstacionA().getPosX()-50,i.getEstacionA().getPosY()-60,100,10);
                 panel.add(nombreEtiA);
                 panel.add(etiA);
-                ratonEstacion(etiA,frame,i.getEstacionA());
-
+                ratonEstacion(etiA,frame,i.getEstacionA().getDirEstacion());
 
                 JLabel etiB = new JLabel();
 
@@ -101,29 +101,22 @@ public class Mapa extends JFrame implements ChangeListener {
                 nombreEtiB.setBounds(i.getEstacionB().getPosX()-50,i.getEstacionB().getPosY()-60,100,10);
                 panel.add(nombreEtiB);
                 panel.add(etiB);
-                ratonEstacion(etiB,frame,i.getEstacionB());
+                ratonEstacion(etiB,frame,i.getEstacionB().getDirEstacion());
             }
         }
-        JLabel nn = new JLabel();
-        JLabel nn1 = new JLabel();
-
-        nn.setIcon(icono);
-        nn1.setIcon(icono);
-        //recoT.cargarCSV("Rieles.csv");
-       // Riel rrll=recoT.encontrarRiel(estaci,estaci1);
-        //Riel rrll1 = recoT.encontrarRiel(estaci1,estaci);
-        //mandarASalir(rrll,estaci,estaci1,nn,panel);
-        //mandarASalir(rrll1,estaci1,estaci,nn1,panel);
-
-
     }
 
     private void colocarCajasDeTexto() {
-
-        cajaEsSalida = new JTextField();
+        JLabel letSa = new JLabel("Salida!!");
+        letSa.setBounds(200,20,100,20);
+        panel.add(letSa);
+        cajaEsSalida = new JTextField("SALIDA");
         cajaEsSalida.setBounds(200,40,100,30);
         panel.add(cajaEsSalida);
-        cajaEsLlegada = new JTextField();
+        JLabel letLle = new JLabel("Llegada!!");
+        letLle.setBounds(325,20,100,20);
+        panel.add(letLle);
+        cajaEsLlegada = new JTextField("LLEGADA");
         cajaEsLlegada.setBounds(325,40,100,30);
         panel.add(cajaEsLlegada);
         JBtn_SalirTren = new JButton("SALIR!!!");
@@ -140,13 +133,25 @@ public class Mapa extends JFrame implements ChangeListener {
 
                 Riel rl = recoT.encontrarRiel(salida,llegada);
                 if  (rl.getNumRiel() != 0) {
-                    //JLabel lavel = new JLabel()
-                    //mandarASalir(rl,salida,llegada,);
+                    JLabel lavel = new JLabel();
+                    lavel.setIcon(icono);
+                    mandarASalir(rl,salida,llegada,lavel,panel);
                 }
 
             }
         });
 
+    }
+    private void colocarElementosDeIngresoTren(){
+        JButton agregar = new JButton("Agregar Tren");
+        agregar.setBounds(10,10,150,30);
+        panel.add(agregar);
+        agregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                agr.setVisible(true);
+            }
+        });
     }
     public void mandarASalir(Riel rl,String nombreESA,String nombreESLle,JLabel lavel,JPanel pannell) {
 
@@ -238,12 +243,24 @@ public class Mapa extends JFrame implements ChangeListener {
         }
     }
 
-    public void ratonEstacion(JLabel labEstacion,Frame frame,Estacion estacion){
+    public void ratonEstacion(JLabel labEstacion,Frame frame,String estacion){
         labEstacion.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(frame,"Nombre de la estacion: "+estacion.getDirEstacion()+"\n"+"Trenes en alamcen: "+estacion.getParqueo().size()
-
+                Estacion est = new Estacion();
+                ArrayList<String[]> al = csv.read(path);
+                ArrayList<Riel> alT = csv.rielesAlmacen(al);
+                for (Riel i:alT){
+                    if (i.getEstacionA().getDirEstacion().equals(estacion)) {
+                        est = i.getEstacionA();
+                        break;
+                    }else if (i.getEstacionB().getDirEstacion().equals(estacion)) {
+                        est = i.getEstacionB();
+                        break;
+                    }
+                }
+                JOptionPane.showMessageDialog(frame,"Nombre de la estacion: "+estacion+"\n"+"Trenes en alamcen: "+est.getParqueo().size()+"\n"+
+                        " dasda:"+est.getParqueo().element().toString()
                         ,"Prueba",JOptionPane.INFORMATION_MESSAGE);
             }
 

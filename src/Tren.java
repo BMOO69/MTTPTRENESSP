@@ -157,30 +157,6 @@ public class Tren extends Thread implements Comparable<Tren> {
         return  res;
     }
 
-
-    public String getCodTren() {
-        return codTren;
-    }
-    public void setCodTren(String codTren) {
-        this.codTren = codTren;
-    }
-    public int getNumPasajeros() {
-        return numPasajeros;
-    }
-    public void setNumPasajeros(int numPasajeros) {
-        this.numPasajeros = numPasajeros;
-    }
-    public int getNumVagones() {
-        return numVagones;
-    }
-    public void setNumVagones(int numVagones) {
-        this.numVagones = numVagones;
-    }
-
-    public JLabel getEtiquetaTren() {
-        return etiquetaTren;
-    }
-
     public void setEtiquetaTren(JLabel etiquetaTren) {
         this.etiquetaTren = etiquetaTren;
     }
@@ -192,24 +168,13 @@ public class Tren extends Thread implements Comparable<Tren> {
     public void setRl(Riel rl) {
         this.rl = rl;
     }
-    public static JPanel getMap() {
-        return map;
-    }
 
     public static void setMap(JPanel map) {
         Tren.map = map;
     }
 
-    public String getNombreEstacionSalida() {
-        return nombreEstacionSalida;
-    }
-
     public void setNombreEstacionSalida(String nombreEstacion) {
         this.nombreEstacionSalida = nombreEstacion;
-    }
-
-    public String getNombreEstacionLLegada() {
-        return nombreEstacionLLegada;
     }
 
     public void setNombreEstacionLLegada(String nombreEstacionLLegada) {
@@ -219,11 +184,6 @@ public class Tren extends Thread implements Comparable<Tren> {
     public Frame getFrame() {
         return frame;
     }
-
-    public void setFrame(Frame frame) {
-        this.frame = frame;
-    }
-
     public int getColorSemaforo() {
         return colorSemaforo;
     }
@@ -234,6 +194,6 @@ public class Tren extends Thread implements Comparable<Tren> {
 
     @Override
     public int compareTo(Tren o) {
-        return o.colorSemaforo > this.colorSemaforo ? 1: -1;
+        return o.colorSemaforo < this.colorSemaforo ? 1: -1;
     }
 }
