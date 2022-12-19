@@ -259,8 +259,24 @@ public class Mapa extends JFrame implements ChangeListener {
                         break;
                     }
                 }
-                JOptionPane.showMessageDialog(frame,"Nombre de la estacion: "+estacion+"\n"+"Trenes en alamcen: "+est.getParqueo().size()+"\n"+
-                        " dasda:"+est.getParqueo().element().toString()
+                int rojo= 0;
+                int amarillo = 0;
+                int verde = 0;
+                ArrayList<Tren> array = new ArrayList<>(est.getParqueo());
+                for(int i = 0;i<array.size();i++) {
+                    if(array.get(i).getColorSemaforo() ==1) {
+                        verde = verde+1;
+                    } else if (array.get(i).getColorSemaforo() == 2) {
+                        amarillo = amarillo+1;
+                    }else {
+                        rojo = rojo+1;
+                    }
+                }
+                JOptionPane.showMessageDialog(frame,"Nombre de la estacion: "+estacion+"\n"+
+                                                            "Trenes en alamcen: "+est.getParqueo().size()+"\n"+
+                                                            "Numero de trenes Rojos: "+rojo+"\n"+
+                                                            "Numero de trenes Amarillos: "+amarillo+"\n"+
+                                                            "Numero de trenes Verder: "+verde+"\n"
                         ,"Prueba",JOptionPane.INFORMATION_MESSAGE);
             }
 

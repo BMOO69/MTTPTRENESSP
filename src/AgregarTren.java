@@ -90,8 +90,11 @@ public class AgregarTren extends JFrame {
                     }
                 }
                 if (var == 1) {
+                    JOptionPane.showMessageDialog(null,"ingreso el tren");
                     frame.setVisible(false);
                     frame.dispose();
+                }else {
+                    JOptionPane.showMessageDialog(null,"ingrese valores Correctos");
                 }
             }
         });
