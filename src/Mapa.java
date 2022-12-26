@@ -1,5 +1,6 @@
 import sun.security.jgss.GSSHeader;
 
+import javax.smartcardio.ATR;
 import javax.speech.AudioException;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -11,13 +12,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-public class Mapa extends JFrame implements ChangeListener {
+public class Mapa extends JFrame implements ActionListener {
     
     CSVManager csv = CSVManager.getInstance();
     static final String path = "Rieles.csv";
     ArrayList<String[]> ccssvv;
     ArrayList<Riel> rieel;
-    JCheckBox jCheckBox;
+    //JCheckBox jCheckBox;
     JPanel panel;
     Microfono micro;
     JTextField cajaEsSalida;
@@ -25,6 +26,16 @@ public class Mapa extends JFrame implements ChangeListener {
     JButton JBtn_SalirTren;
     String salida="";
     String llegada="";
+    ImageIcon im;
+    Icon icono;
+    Frame frame;
+    RecorrerTren recoT;
+    AgregarTren agr;
+    Micro mr;
+    Microfono microfono;
+    JRadioButton radioB;
+    String textEstacion;
+    JButton esta;
     public Mapa() {
         ccssvv = csv.read(path);
         rieel = csv.rielesAlmacen(ccssvv);
@@ -33,16 +44,21 @@ public class Mapa extends JFrame implements ChangeListener {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Control de operaciones de trenes");
+        frame = this;
+        ImageIcon im = new ImageIcon("imagenes/trenn.jpg");
+        icono = new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH));
+        agr = new AgregarTren();
+        mr = new Micro();
+        microfono = new Microfono();
         //this.getContentPane().setBackground(Color.green);
+
         iniciarComponentes();
     }
 
     private void iniciarComponentes() {
         micro = new Microfono();
         //micro.inicializarMicro();
-        RecorrerTren recoT = new RecorrerTren();
-
-        Frame frame = this;
+        recoT = new RecorrerTren(path);
         panel = new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
@@ -52,28 +68,24 @@ public class Mapa extends JFrame implements ChangeListener {
                 Graphics2D g2 =(Graphics2D) g;
                 g2.setStroke(new BasicStroke(10));
                 if(!rieel.isEmpty()) {
-                    for (int i= 0; i<rieel.size(); i++) {
-                        Estacion estacionA = rieel.get(i).getEstacionA();
-                        Estacion estacionB = rieel.get(i).getEstacionB();
+                    for (Riel riel : rieel) {
+                        Estacion estacionA = riel.getEstacionA();
+                        Estacion estacionB = riel.getEstacionB();
 
-                        g.drawLine(estacionA.getPosX(),estacionA.getPosY(),estacionB.getPosX(),estacionB.getPosY());
+                        g.drawLine(estacionA.getPosX(), estacionA.getPosY(), estacionB.getPosX(), estacionB.getPosY());
                     }
                 }
             }
         };
-
         colocarCajasDeTexto();
-
-
-        panel.add(jCheckBox);
+        colocarElementosDeIngresoTren();
 
         Tren.setMap(panel);
-        panel.setBackground(Color.green);
+        panel.setBackground(Color.GRAY);
         panel.setLayout(null);
         this.getContentPane().add(panel);
-        JLabel etiqueta = new JLabel();
 
-        ImageIcon imagen = new ImageIcon("trainStation.png");
+        ImageIcon imagen = new ImageIcon("imagenes/trainStation.png");
         if (!rieel.isEmpty()){
             for (Riel i : rieel) {
 
@@ -84,8 +96,7 @@ public class Mapa extends JFrame implements ChangeListener {
                 nombreEtiA.setBounds(i.getEstacionA().getPosX()-50,i.getEstacionA().getPosY()-60,100,10);
                 panel.add(nombreEtiA);
                 panel.add(etiA);
-                ratonEstacion(etiA,frame,i.getEstacionA());
-
+                ratonEstacion(etiA,frame,i.getEstacionA().getDirEstacion());
 
                 JLabel etiB = new JLabel();
 
@@ -95,52 +106,18 @@ public class Mapa extends JFrame implements ChangeListener {
                 nombreEtiB.setBounds(i.getEstacionB().getPosX()-50,i.getEstacionB().getPosY()-60,100,10);
                 panel.add(nombreEtiB);
                 panel.add(etiB);
-                ratonEstacion(etiB,frame,i.getEstacionB());
+                ratonEstacion(etiB,frame,i.getEstacionB().getDirEstacion());
             }
         }
-        ImageIcon imagenOK = new ImageIcon("check.png");
-        ImageIcon im = new ImageIcon("trenn.jpg");
-        Tren.imagenOK= imagenOK;
-        Icon icono = new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH));
-        String estaci = "Sacaba";
-        String estaci1 = "Quillacollo";
-
-        JLabel nn = new JLabel();
-        JLabel nn1 = new JLabel();
-
-        nn.setIcon(icono);
-        nn1.setIcon(icono);
-        recoT.cargarCSV("Rieles.csv");
-        Riel rrll=recoT.encontrarRiel(estaci,estaci1);
-        Riel rrll1 = recoT.encontrarRiel(estaci1,estaci);
-        //System.out.println(rrll1.toString());
-        //mandarASalir(rrll,estaci,estaci1,nn,panel);
-        //mandarASalir(rrll1,estaci1,estaci,nn1,panel);
-
-
     }
-
-    private void colocarCajasDeTexto() {
-        
-        cajaEsSalida = new JTextField();
-        cajaEsSalida.setBounds(200,40,100,30);
-        panel.add(cajaEsSalida);
-        cajaEsLlegada = new JTextField();
-        cajaEsLlegada.setBounds(325,40,100,30);
-        panel.add(cajaEsLlegada);
-        JBtn_SalirTren = new JButton("SALIR!!!");
-        JBtn_SalirTren.setBounds(450,40,100,30);
-        panel.add(JBtn_SalirTren);
-        JBtn_SalirTren.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //panel.setBackground(Color.BLACK);
-                salida = cajaEsSalida.getText();
-                llegada = cajaEsLlegada.getText();
-                System.out.println(salida+ "   "+llegada);
-            }
-        });
-
+    public void mandarASalirMicro(String nameA,String nameB) {
+        System.out.println(salida+ "   "+llegada);
+        Riel rl = recoT.encontrarRiel(nameA,nameB);
+        if  (rl.getNumRiel() != 0) {
+            JLabel lavel = new JLabel();
+            lavel.setIcon(icono);
+            mandarASalir(rl,salida,llegada,lavel,panel);
+        }
     }
     public void mandarASalir(Riel rl,String nombreESA,String nombreESLle,JLabel lavel,JPanel pannell) {
 
@@ -170,9 +147,7 @@ public class Mapa extends JFrame implements ChangeListener {
                     } else {
                         JOptionPane.showMessageDialog(null,"no hay trenes en condiciones de salida");
                     }
-
                 }
-
             }else {
                 JOptionPane.showMessageDialog(null,"No existe trenees en la estacion"+rl.getEstacionA().getDirEstacion());
             }
@@ -198,7 +173,6 @@ public class Mapa extends JFrame implements ChangeListener {
                     }else if (tre.getColorSemaforo() == 2) {
                         Tren tren = new Tren(tre.codTren,tre.numVagones,tre.numPasajeros,tre.colorSemaforo);
                         mandarASalrTrenHilo(tren,nombreESA,nombreESLle,lavel,pannell,rl);
-
                     } else {
                         JOptionPane.showMessageDialog(null,"no hay trenes en condiciones de salida");
                     }
@@ -217,27 +191,122 @@ public class Mapa extends JFrame implements ChangeListener {
         tren.setRl(rl);
         tren.start();
     }
-    @Override
-    public void stateChanged(ChangeEvent e) {
-        if (jCheckBox.isSelected() == true) {
-            /*try {
-                micro.encerderMicrofono();
-            } catch (AudioException ex) {
-                throw new RuntimeException(ex);
+    private void colocarCajasDeTexto() {
+        JLabel letSa = new JLabel("Salida!!");
+        letSa.setBounds(200,20,100,20);
+        panel.add(letSa);
+        cajaEsSalida = new JTextField("SALIDA");
+        cajaEsSalida.setBounds(200,40,100,30);
+        panel.add(cajaEsSalida);
+        JLabel letLle = new JLabel("Llegada!!");
+        letLle.setBounds(325,20,100,20);
+        panel.add(letLle);
+        cajaEsLlegada = new JTextField("LLEGADA");
+        cajaEsLlegada.setBounds(325,40,100,30);
+        panel.add(cajaEsLlegada);
+        JBtn_SalirTren = new JButton("SALIR!!!");
+        JBtn_SalirTren.setBounds(450,40,100,30);
+        panel.add(JBtn_SalirTren);
+        //panel.add(jCheckBox);
+        radioB =new JRadioButton("Microfono");
+        radioB.setBounds(0,100,60,30);
+        panel.add(radioB);
+        radioB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (radioB.isSelected()){
+                    mr.iniciar();
+                }
+                if (!radioB.isSelected()) {
+                    mr.apagar();
+                }
             }
-            */
+        });
+        JBtn_SalirTren.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                salida = cajaEsSalida.getText();
+                llegada = cajaEsLlegada.getText();
+                System.out.println(salida+ "   "+llegada);
+
+                Riel rl = recoT.encontrarRiel(salida,llegada);
+                if  (rl.getNumRiel() != 0) {
+                    JLabel lavel = new JLabel();
+                    lavel.setIcon(icono);
+                    mandarASalir(rl,salida,llegada,lavel,panel);
+                }
+            }
+        });
+        esta = new JButton("Estadistica");
+        esta.setBounds(450,10,100,30);
+        panel.add(esta);
+        esta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("preciono boton estadistica");
+            }
+        });
+    }
+    private void colocarElementosDeIngresoTren(){
+        JButton agregar = new JButton("Agregar Tren");
+        agregar.setBounds(10,10,150,30);
+        panel.add(agregar);
+        agregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                agr.setVisible(true);
+            }
+        });
+    }
+    /*@Override
+    /*public void stateChanged(ChangeEvent e) {
+        if (radioB.isSelected() == true) {
+            try {
+                microfono.inicializarMicro();
+                //mr.iniciar();
+            } catch (Exception ex) {
+                System.out.println("error al encender el microfono frame: "+ex.toString());
+            }
         }
         else {
-            micro.apagarMicrofono();
+            mr.apagar();
         }
-    }
+    }*/
 
-    public void ratonEstacion(JLabel labEstacion,Frame frame,Estacion estacion){
+    public void ratonEstacion(JLabel labEstacion,Frame frame,String estacion){
         labEstacion.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(frame,"Nombre de la estacion: "+estacion.getDirEstacion()+"\n"+"Trenes en alamcen: "+estacion.getParqueo().size()
-
+                Estacion est = new Estacion();
+                ArrayList<String[]> al = csv.read(path);
+                ArrayList<Riel> alT = csv.rielesAlmacen(al);
+                for (Riel i:alT){
+                    if (i.getEstacionA().getDirEstacion().equals(estacion)) {
+                        est = i.getEstacionA();
+                        break;
+                    }else if (i.getEstacionB().getDirEstacion().equals(estacion)) {
+                        est = i.getEstacionB();
+                        break;
+                    }
+                }
+                int rojo= 0;
+                int amarillo = 0;
+                int verde = 0;
+                ArrayList<Tren> array = new ArrayList<>(est.getParqueo());
+                for(int i = 0;i<array.size();i++) {
+                    if(array.get(i).getColorSemaforo() ==1) {
+                        verde = verde+1;
+                    } else if (array.get(i).getColorSemaforo() == 2) {
+                        amarillo = amarillo+1;
+                    }else {
+                        rojo = rojo+1;
+                    }
+                }
+                JOptionPane.showMessageDialog(frame,"Nombre de la estacion: "+estacion+"\n"+
+                                                            "Trenes en alamcen: "+est.getParqueo().size()+"\n"+
+                                                            "Numero de trenes Rojos: "+rojo+"\n"+
+                                                            "Numero de trenes Amarillos: "+amarillo+"\n"+
+                                                            "Numero de trenes Verder: "+verde+"\n"
                         ,"Prueba",JOptionPane.INFORMATION_MESSAGE);
             }
 
@@ -250,5 +319,15 @@ public class Mapa extends JFrame implements ChangeListener {
             @Override
             public void mouseExited(MouseEvent e) {}
         });
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (radioB.isSelected()){
+            JOptionPane.showMessageDialog(this,"asdasdads");
+        }
+        if (!radioB.isSelected()) {
+            System.out.println("me lapeas");
+        }
     }
 }

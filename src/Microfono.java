@@ -34,6 +34,7 @@ public class Microfono extends ResultAdapter {
                 System.exit(0);
             }else {
                 recognizer.suspend();
+                palabra = args[0];
                 recognizer.resume();
             }
         } catch (Exception e) {
@@ -61,25 +62,20 @@ public class Microfono extends ResultAdapter {
         }
     }
     public void encerderMicrofono() throws AudioException {
-        recognizer.resume();
+        this.recognizer.resume();
     }
     public  void apagarMicrofono() {
-        recognizer.suspend();
+        this.recognizer.suspend();
     }
-
-
     public String getGst() {
         return gst;
     }
-
     public void setGst(String gst) {
         this.gst = gst;
     }
-
     public String getPalabra() {
         return palabra;
     }
-
     public void setPalabra(String palabra) {
         this.palabra = palabra;
     }

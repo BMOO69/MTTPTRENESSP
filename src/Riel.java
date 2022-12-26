@@ -19,8 +19,8 @@ public class Riel {
         this.x2 = estacionB.getPosX();
         this.y2 = estacionB.getPosY();
     }
-    public Riel(){
-
+    public Riel(int nim){
+        this.numRiel = nim;
     }
 
     public String toString() {

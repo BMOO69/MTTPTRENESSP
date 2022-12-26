@@ -3,6 +3,7 @@ import com.sun.deploy.ui.AboutDialog;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class main {
 
@@ -10,5 +11,19 @@ public class main {
 
         //Mapa m1 = new Mapa();
         //m1.setVisible(true);
+
+        Micro m1 = new Micro();
+        m1.iniciar();
+
+        //Ventana v = new Ventana();
+        //v.setVisible(true);
+        //NUEEEE n = new NUEEEE();
+        //n.setVisible(true);
+        //Micro mr = new Micro();
+        //mr.iniciar();
+
+        //Microfono m = new Microfono();
+        //m.inicializarMicro();
+
     }
 }

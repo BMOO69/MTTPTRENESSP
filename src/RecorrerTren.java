@@ -7,7 +7,9 @@ public class RecorrerTren {
     ArrayList<Riel> rieles;
     String dir = "Rieles.csv";
 
-    public RecorrerTren(){
+    public RecorrerTren(String path){
+        cssvv = csv.read(path);
+        rieles = csv.rielesAlmacen(cssvv);
     }
     public void cargarCSV(String path) {
         cssvv = csv.read(path);
@@ -76,7 +78,7 @@ public class RecorrerTren {
     }
     public Riel encontrarRiel(String nombreEsSalida,String nombreEsLlegada) {
         //Riel res = new Riel(0,new Estacion(),new Estacion());
-        Riel res = new Riel();
+        Riel res=new Riel(0);;
         if (!rieles.isEmpty()) {
             for (Riel i: rieles) {
                 if ((i.getEstacionA().getDirEstacion().equals(nombreEsSalida) && i.getEstacionB().getDirEstacion().equals(nombreEsLlegada)) ||
