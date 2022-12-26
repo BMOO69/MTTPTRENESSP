@@ -5,9 +5,9 @@ import java.awt.*;
 
 public class Semaforo {
 
-    public static final String rojoI = "Rojo.jpg";
-    public static final String amarilloI = "Amarillo.jpg";
-    public static final String verdeI ="Verde.jpg";
+    public static final String rojoI = "imagenes/Rojo.jpg";
+    public static final String amarilloI = "imagenes/Amarillo.jpg";
+    public static final String verdeI ="imagenes/Verde.jpg";
 
     public Semaforo(){
     }

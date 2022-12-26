@@ -34,6 +34,8 @@ public class Mapa extends JFrame implements ActionListener {
     Micro mr;
     Microfono microfono;
     JRadioButton radioB;
+    String textEstacion;
+    JButton esta;
     public Mapa() {
         ccssvv = csv.read(path);
         rieel = csv.rielesAlmacen(ccssvv);
@@ -43,12 +45,13 @@ public class Mapa extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Control de operaciones de trenes");
         frame = this;
-        im = new ImageIcon("trenn.jpg");
+        ImageIcon im = new ImageIcon("imagenes/trenn.jpg");
         icono = new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH));
         agr = new AgregarTren();
         mr = new Micro();
         microfono = new Microfono();
         //this.getContentPane().setBackground(Color.green);
+
         iniciarComponentes();
     }
 
@@ -56,7 +59,6 @@ public class Mapa extends JFrame implements ActionListener {
         micro = new Microfono();
         //micro.inicializarMicro();
         recoT = new RecorrerTren(path);
-
         panel = new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
@@ -75,16 +77,15 @@ public class Mapa extends JFrame implements ActionListener {
                 }
             }
         };
-
         colocarCajasDeTexto();
         colocarElementosDeIngresoTren();
 
         Tren.setMap(panel);
-        panel.setBackground(Color.green);
+        panel.setBackground(Color.GRAY);
         panel.setLayout(null);
         this.getContentPane().add(panel);
 
-        ImageIcon imagen = new ImageIcon("trainStation.png");
+        ImageIcon imagen = new ImageIcon("imagenes/trainStation.png");
         if (!rieel.isEmpty()){
             for (Riel i : rieel) {
 
@@ -107,6 +108,15 @@ public class Mapa extends JFrame implements ActionListener {
                 panel.add(etiB);
                 ratonEstacion(etiB,frame,i.getEstacionB().getDirEstacion());
             }
+        }
+    }
+    public void mandarASalirMicro(String nameA,String nameB) {
+        System.out.println(salida+ "   "+llegada);
+        Riel rl = recoT.encontrarRiel(nameA,nameB);
+        if  (rl.getNumRiel() != 0) {
+            JLabel lavel = new JLabel();
+            lavel.setIcon(icono);
+            mandarASalir(rl,salida,llegada,lavel,panel);
         }
     }
     public void mandarASalir(Riel rl,String nombreESA,String nombreESLle,JLabel lavel,JPanel pannell) {
@@ -225,6 +235,15 @@ public class Mapa extends JFrame implements ActionListener {
                     lavel.setIcon(icono);
                     mandarASalir(rl,salida,llegada,lavel,panel);
                 }
+            }
+        });
+        esta = new JButton("Estadistica");
+        esta.setBounds(450,10,100,30);
+        panel.add(esta);
+        esta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("preciono boton estadistica");
             }
         });
     }

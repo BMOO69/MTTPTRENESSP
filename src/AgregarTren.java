@@ -12,6 +12,14 @@ public class AgregarTren extends JFrame {
     JPanel panel;
     JButton agregar;
     JFrame frame;
+    JLabel labelCodTren;
+    JTextField codTren;
+    JLabel labelNumVag;
+    JTextField numVag;
+    JLabel labelNumPas;
+    JTextField numPas;
+    JLabel labelEstacion;
+    JTextField textEstacion;
     public AgregarTren(){
         ccssvv = csv.read(path);
         riel = csv.rielesAlmacen(ccssvv);
@@ -28,35 +36,35 @@ public class AgregarTren extends JFrame {
         panel.setLayout(null);
         this.getContentPane().add(panel);
 
-        JLabel labelCodTren = new JLabel("ingrese el codigo del tren");
+        labelCodTren = new JLabel("ingrese el codigo del tren");
         labelCodTren.setBounds(30,40,200,30);
         panel.add(labelCodTren);
 
-        JTextField codTren = new JTextField();
+        codTren = new JTextField();
         codTren.setBounds(30,75,200,30);
         panel.add(codTren);
 
-        JLabel labelNumVag = new JLabel("ingrese la cantidad de vagones");
+        labelNumVag = new JLabel("ingrese la cantidad de vagones");
         labelNumVag.setBounds(30,105,200,30);
         panel.add(labelNumVag);
 
-        JTextField numVag = new JTextField();
+        numVag = new JTextField();
         numVag.setBounds(30,140,200,30);
         panel.add(numVag);
 
-        JLabel labelNumPas = new JLabel("ingrese la cantidad de pasajeros");
+        labelNumPas = new JLabel("ingrese la cantidad de pasajeros");
         labelNumPas.setBounds(30,175,200,30);
         panel.add(labelNumPas);
 
-        JTextField numPas = new JTextField();
+        numPas = new JTextField();
         numPas.setBounds(30,210,200,30);
         panel.add(numPas);
 
-        JLabel labelEstacion = new JLabel("ingrese la estacion a ingresar");
+        labelEstacion = new JLabel("ingrese la estacion a ingresar");
         labelEstacion.setBounds(30,245,200,30);
         panel.add(labelEstacion);
 
-        JTextField textEstacion = new JTextField();
+        textEstacion = new JTextField();
         textEstacion.setBounds(30,280,200,30);
         panel.add(textEstacion);
 

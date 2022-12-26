@@ -135,9 +135,6 @@ public class Tren extends Thread implements Comparable<Tren> {
         }
     }
 
-    private void cambiarEstadoTren(){
-
-    }
     public String toString() {
         String res;
         res = codTren + "#" + numVagones + "#" + numPasajeros+ "#" + colorSemaforo;
@@ -181,6 +178,7 @@ public class Tren extends Thread implements Comparable<Tren> {
 
     @Override
     public int compareTo(Tren o) {
+
         return o.colorSemaforo < this.colorSemaforo ? 1: -1;
     }
 }

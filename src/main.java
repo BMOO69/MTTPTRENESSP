@@ -9,10 +9,14 @@ public class main {
 
     public static void main(String[] args) {
 
+        //Mapa m1 = new Mapa();
+        //m1.setVisible(true);
 
-        Mapa m1 = new Mapa();
-        m1.setVisible(true);
+        Micro m1 = new Micro();
+        m1.iniciar();
 
+        //Ventana v = new Ventana();
+        //v.setVisible(true);
         //NUEEEE n = new NUEEEE();
         //n.setVisible(true);
         //Micro mr = new Micro();

@@ -2,6 +2,7 @@ import javax.speech.Central;
 import javax.speech.EngineException;
 import javax.speech.EngineModeDesc;
 import javax.speech.recognition.*;
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -19,14 +20,19 @@ public class Micro extends ResultAdapter {
     public String cad;
     String cadena;
     private ArrayList<String[]> comandos;
+    public String[] array;
+    public RecorrerTren recott;
     public Mapa m;
+    String textEstacion;
     public Micro(){
+        recott = new RecorrerTren("Rieles.csv");
         this.desconectado = true;
         cad = "";
         gst = "";
-        m = new Mapa();
     }
     public void iniciar() {
+        m = new Mapa();
+        m.setVisible(true);
         try {
             recognizer = Central.createRecognizer(new EngineModeDesc(Locale.ROOT));
             recognizer.allocate();
@@ -45,28 +51,7 @@ public class Micro extends ResultAdapter {
             System.out.println("ha ocurrido algo inesperao micro: "+e.toString());
         }
     }
-    public void apagar() {
-        try {
-            if (desconectado) {
-                recognizer.pause();
-                System.out.println("apagado micro");
-            }
-        }catch (Exception e) {
-            System.out.println("problema al apagar el micro: "+e.toString());
-        }
-    }
-    public void prender() {
-        try {
-            if (!desconectado) {
-                iniciar();
-                System.out.println("encendio microfono");
-            }else {
-                recognizer.resume();
-            }
-        } catch (Exception e) {
-            System.out.println("problema en el encendido del microfono: "+e.toString());
-        }
-    }
+
     @Override
     public void resultAccepted(ResultEvent re) {
         String aux = "";
@@ -85,8 +70,10 @@ public class Micro extends ResultAdapter {
             cadena = numComando(cad);
             if (cadena.equals(cad)) {
                 recognizer.suspend();
+                String[] varr = cad.split(" ");
                 System.out.println("funciona funciona");
-
+                m.mandarASalirMicro(varr[2],varr[3]);
+                array = varr;
                 recognizer.resume();
             }
         }catch (Exception e) {
@@ -123,5 +110,35 @@ public class Micro extends ResultAdapter {
             }
         }
         return res;
+    }
+    public void apagar() {
+        try {
+            if (desconectado) {
+                recognizer.pause();
+                System.out.println("apagado micro");
+            }
+        }catch (Exception e) {
+            System.out.println("problema al apagar el micro: "+e.toString());
+        }
+    }
+    public void prender() {
+        try {
+            if (!desconectado) {
+                iniciar();
+                System.out.println("encendio microfono");
+            }else {
+                recognizer.resume();
+            }
+        } catch (Exception e) {
+            System.out.println("problema en el encendido del microfono: "+e.toString());
+        }
+    }
+
+    public String[] getArray() {
+        return array;
+    }
+
+    public void setArray(String[] array) {
+        this.array = array;
     }
 }
