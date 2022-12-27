@@ -26,7 +26,6 @@ public class RecorrerTren {
             salido.setColorSemaforo(colorTren.cambioSemaforo(salido.getColorSemaforo()));
             estB.almacenarTren(salido);
             Riel over = new Riel(rl.numRiel,estA,estB);
-
             csv.overWrite(rl.numRiel,dir,over.toString());
             modificarLosDemasRieles(rl,estA,estB);
         }else{

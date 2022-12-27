@@ -19,6 +19,7 @@ public class Tren extends Thread implements Comparable<Tren> {
     String nombreEstacionSalida;
     String nombreEstacionLLegada;
     public static JPanel map;
+    Estadistica est;
     public Tren(){}
     public Tren(String codTren,int numVagones, int numPasajeros,int colorSemaforo ) {
         this.codTren = codTren;
@@ -32,6 +33,8 @@ public class Tren extends Thread implements Comparable<Tren> {
         RecorrerTren recoT = new RecorrerTren(DIRRIELES);
         boolean direccion = recoT.trenSaleDeEsatacion(this.getRl(),this.nombreEstacionSalida);
         double pendiente =pendienteRecta(rl.getEstacionA().getPosX(),rl.getEstacionA().getPosY(),rl.getEstacionB().getPosX(),rl.getEstacionB().getPosY());
+        est = new Estadistica();
+        est.agregarRecorrido(getRl(),this,this.nombreEstacionSalida,this.nombreEstacionLLegada);
         if( pendiente == 0){
             recoT.salirTrenEstaccion(rl,nombreEstacionSalida);
             pendienteCero(direccion);
@@ -163,6 +166,30 @@ public class Tren extends Thread implements Comparable<Tren> {
 
     public void setNombreEstacionLLegada(String nombreEstacionLLegada) {
         this.nombreEstacionLLegada = nombreEstacionLLegada;
+    }
+
+    public String getCodTren() {
+        return codTren;
+    }
+
+    public void setCodTren(String codTren) {
+        this.codTren = codTren;
+    }
+
+    public int getNumPasajeros() {
+        return numPasajeros;
+    }
+
+    public void setNumPasajeros(int numPasajeros) {
+        this.numPasajeros = numPasajeros;
+    }
+
+    public int getNumVagones() {
+        return numVagones;
+    }
+
+    public void setNumVagones(int numVagones) {
+        this.numVagones = numVagones;
     }
 
     public Frame getFrame() {
