@@ -9,10 +9,6 @@ public class main {
 
     public static void main(String[] args) {
 
-
-
-        //VenEstadistica v = new VenEstadistica();
-        //v.setVisible(true);
         Micro m1 = new Micro();
         m1.iniciar();
 

@@ -10,7 +10,4 @@ public class Estadistica {
         String var = sal+"-"+lle+"-"+t.getCodTren()+"-"+t.getNumPasajeros()+"\n";
         csv.write(dirEsta,var);
     }
-
-
-
 }

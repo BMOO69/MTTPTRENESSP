@@ -17,12 +17,6 @@ public class Estacion {
     public int posX;
     public int posY;
     public boolean operando;
-
-    public JLabel etiquetaEstacion;
-    public Frame frame;
-
-    //public ArrayList<Tren> parqueo = new ArrayList<>();
-
     public Queue<Tren> parqueo = new PriorityQueue<>();
     public Estacion() {}
 
@@ -50,8 +44,6 @@ public class Estacion {
         }
         return res;
     }
-
-
     public void almacenarTren(Tren tren) {
         parqueo.add(tren);
     }
@@ -59,9 +51,7 @@ public class Estacion {
     public void setParqueo(Queue<Tren> trenes) {
         this.parqueo = trenes;
     }
-    public void setDirEstacion(String dirEstacion) {
-        this.dirEstacion = dirEstacion;
-    }
+    public void setDirEstacion(String dirEstacion) {this.dirEstacion = dirEstacion; }
     public void setNumTrenes(int numTrenes) {
         this.numTrenes = numTrenes;
     }
@@ -80,26 +70,8 @@ public class Estacion {
     public String getDirEstacion() {
         return dirEstacion;
     }
-    public int getNumTrenes() {
-        return numTrenes;
-    }
-    public int getMaxTrenes() {
-        return maxTrenes;
-    }
-    public boolean isOperando() {
-        return operando;
-    }
     public int getPosX() { return posX;}
     public int getPosY() { return posY;}
-
-    public JLabel getEtiquetaEstacion() {
-        return etiquetaEstacion;
-    }
-
-    public void setEtiquetaEstacion(JLabel etiquetaEstacion) {
-        this.etiquetaEstacion = etiquetaEstacion;
-    }
-
     public Queue<Tren> getParqueo() {
         return parqueo;
     }

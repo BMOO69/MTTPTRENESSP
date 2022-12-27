@@ -26,7 +26,6 @@ public class AgregarTren extends JFrame {
         setSize(400,500);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        //setLayout(null);
         setTitle("agregar Tren");
         frame = this;
         initComponet();
@@ -107,8 +106,5 @@ public class AgregarTren extends JFrame {
             }
         });
 
-    }
-    private void cerrarVentana(){
-       // frame.setDefaultCloseOperation();
     }
 }

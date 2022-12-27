@@ -35,3 +35,6 @@ Cercado-Tarata-Segundo1BB-34
 Quillacollo-Tarata-Tercer1B-12
 Quillacollo-Tarata-Primer1B-45
 Quillacollo-Tarata-TercerTren3A-45
+Quillacollo-Sacaba-TercerTren3A-45
+Cercado-Tarata-SegundoTren2AA-90
+Quillacollo-Sacaba-TercerTren3A-45

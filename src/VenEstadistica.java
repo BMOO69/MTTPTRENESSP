@@ -7,8 +7,6 @@ public class VenEstadistica  extends JFrame {
     CSVManager csv = CSVManager.getInstance();
     private static final String dirEst = "Estadistica.txt";
     JPanel panel;
-
-    JButton button;
     private JTextArea area;
     private JScrollPane scroll;
     ArrayList<String[]> variablesEstadisticos;

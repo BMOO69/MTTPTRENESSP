@@ -18,9 +18,7 @@ public class Mapa extends JFrame implements ActionListener {
     static final String path = "Rieles.csv";
     ArrayList<String[]> ccssvv;
     ArrayList<Riel> rieel;
-    //JCheckBox jCheckBox;
     JPanel panel;
-    Microfono micro;
     JTextField cajaEsSalida;
     JTextField cajaEsLlegada;
     JButton JBtn_SalirTren;
@@ -31,9 +29,6 @@ public class Mapa extends JFrame implements ActionListener {
     Frame frame;
     RecorrerTren recoT;
     AgregarTren agr;
-    Micro mr;
-    Microfono microfono;
-    JRadioButton radioB;
     String textEstacion;
     JButton esta;
     VenEstadistica venEsta;
@@ -49,16 +44,10 @@ public class Mapa extends JFrame implements ActionListener {
         ImageIcon im = new ImageIcon("imagenes/trenn.jpg");
         icono = new ImageIcon(im.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH));
         agr = new AgregarTren();
-        mr = new Micro();
-        microfono = new Microfono();
-        //this.getContentPane().setBackground(Color.green);
-
         iniciarComponentes();
     }
 
     private void iniciarComponentes() {
-        micro = new Microfono();
-        //micro.inicializarMicro();
         recoT = new RecorrerTren(path);
         panel = new JPanel() {
             @Override
@@ -112,7 +101,6 @@ public class Mapa extends JFrame implements ActionListener {
         }
     }
     public void mandarASalirMicro(String nameA,String nameB) {
-        System.out.println(nameA+ "   "+nameB+"----------------------------<>");
         Riel rl = recoT.encontrarRiel(nameA,nameB);
         if  (rl.getNumRiel() != 0) {
             JLabel lavel = new JLabel();
@@ -290,5 +278,10 @@ public class Mapa extends JFrame implements ActionListener {
             @Override
             public void mouseExited(MouseEvent e) {}
         });
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }

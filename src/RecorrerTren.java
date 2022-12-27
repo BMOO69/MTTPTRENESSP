@@ -59,18 +59,19 @@ public class RecorrerTren {
                         Riel over = new Riel(i.getNumRiel(),estA,i.getEstacionB());
                         csv.overWrite(i.getNumRiel(),dir,over.toString());
                     }
-                    if (estB.getDirEstacion().equals(i.getEstacionA().getDirEstacion())) {
-                        Riel over = new Riel(i.getNumRiel(),estB,i.getEstacionB());
-                        csv.overWrite(i.getNumRiel(),dir,over.toString());
-                    }
-                    if (estB.getDirEstacion().equals(i.getEstacionA().getDirEstacion())) {
-                        Riel over = new Riel(i.getNumRiel(),estB,i.getEstacionB());
-                        csv.overWrite(i.getNumRiel(),dir,over.toString());
-                    }
                     if (estA.getDirEstacion().equals(i.getEstacionB().dirEstacion)) {
                         Riel over = new Riel(i.getNumRiel(),i.getEstacionA(),estA);
                         csv.overWrite(i.getNumRiel(),dir,over.toString());
                     }
+                    if (estB.getDirEstacion().equals(i.getEstacionA().getDirEstacion())) {
+                        Riel over = new Riel(i.getNumRiel(),estB,i.getEstacionB());
+                        csv.overWrite(i.getNumRiel(),dir,over.toString());
+                    }
+                    if (estB.getDirEstacion().equals(i.getEstacionB().getDirEstacion())) {
+                        Riel over = new Riel(i.getNumRiel(),i.getEstacionA(),estB);
+                        csv.overWrite(i.getNumRiel(),dir,over.toString());
+                    }
+
                 }
             }
         }

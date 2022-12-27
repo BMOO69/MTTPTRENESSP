@@ -14,11 +14,10 @@ import java.util.Scanner;
 public class Micro extends ResultAdapter {
     public static Recognizer recognizer;
     private static final String dirPath = "Gramatica.txt";
-    private boolean arranque;
     private boolean desconectado;
     public String gst;
     public String cad;
-    String cadena;
+    public String cadena;
     private ArrayList<String[]> comandos;
     public String[] array;
     public RecorrerTren recott;
@@ -81,10 +80,6 @@ public class Micro extends ResultAdapter {
         }
 
     }
-    public String getCad(){
-        return cad;
-    }
-
     private ArrayList<String[]> archivoComandos(String dir){
         ArrayList<String[]> res = new ArrayList<>();
         try {

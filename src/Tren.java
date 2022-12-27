@@ -11,15 +11,13 @@ public class Tren extends Thread implements Comparable<Tren> {
     public int numPasajeros;
     public int numVagones;
     public int colorSemaforo;
-    public static ImageIcon imagenOK;
-    JLabel etiquetaTren;
-    Frame frame;
-    Riel rl;
-
-    String nombreEstacionSalida;
-    String nombreEstacionLLegada;
+    public JLabel etiquetaTren;
+    public Frame frame;
+    public Riel rl;
+    public String nombreEstacionSalida;
+    public String nombreEstacionLLegada;
     public static JPanel map;
-    Estadistica est;
+    public Estadistica est;
     public Tren(){}
     public Tren(String codTren,int numVagones, int numPasajeros,int colorSemaforo ) {
         this.codTren = codTren;
@@ -99,13 +97,9 @@ public class Tren extends Thread implements Comparable<Tren> {
         }
     }
     private double pendienteRecta (int x,int y,int x1,int y1) {
-        double y22 = y1;
-        double y11 = y;
-        double x22 = x1;
-        double x11 = x;
 
         double res1;
-        res1 = (y22 - y11) / (x22 - x11);
+        res1 = ((double) y1 - (double) y) / ((double) x1 - (double) x);
         return res1;
     }
     private void pendienteCero(boolean dir) {
@@ -167,45 +161,18 @@ public class Tren extends Thread implements Comparable<Tren> {
     public void setNombreEstacionLLegada(String nombreEstacionLLegada) {
         this.nombreEstacionLLegada = nombreEstacionLLegada;
     }
-
     public String getCodTren() {
         return codTren;
     }
-
-    public void setCodTren(String codTren) {
-        this.codTren = codTren;
-    }
-
-    public int getNumPasajeros() {
-        return numPasajeros;
-    }
-
-    public void setNumPasajeros(int numPasajeros) {
-        this.numPasajeros = numPasajeros;
-    }
-
-    public int getNumVagones() {
-        return numVagones;
-    }
-
-    public void setNumVagones(int numVagones) {
-        this.numVagones = numVagones;
-    }
-
-    public Frame getFrame() {
-        return frame;
-    }
+    public int getNumPasajeros() {return numPasajeros; }
     public int getColorSemaforo() {
         return colorSemaforo;
     }
-
     public void setColorSemaforo(int colorSemaforo) {
         this.colorSemaforo = colorSemaforo;
     }
-
     @Override
     public int compareTo(Tren o) {
-
         return o.colorSemaforo < this.colorSemaforo ? 1: -1;
     }
 }

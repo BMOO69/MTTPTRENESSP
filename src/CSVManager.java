@@ -119,23 +119,4 @@ public class CSVManager {
         }
         return res;
     }
-
-    /*private ArrayList<Tren> obtenerTrenes(String cad) {
-        String[] array = cad.split(",");
-        ArrayList<Tren> res = new ArrayList<>();
-
-        if (array.length != 0){
-            for (int i = 0; i < array.length; i++) {
-                String[] var = array[i].split("#");
-                String codt = var[0];
-                int numV = Integer.parseInt(var[1]);
-                int numP = Integer.parseInt(var[2]);
-                res.add(new Tren(codt, numV, numP));
-            }
-        }
-
-        return res;
-        }
-
-*/
 }
