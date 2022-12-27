@@ -1,8 +1,5 @@
 import java.awt.*;
-import java.util.ArrayList;
-
 public class Riel {
-
     public int numRiel;
     public Estacion estacionA;
     public Estacion estacionB;
@@ -32,9 +29,6 @@ public class Riel {
 
     public int getNumRiel() {
         return numRiel;
-    }
-    public void setNumRiel(int numRiel) {
-        this.numRiel = numRiel;
     }
     public Estacion getEstacionA() {
         return estacionA;

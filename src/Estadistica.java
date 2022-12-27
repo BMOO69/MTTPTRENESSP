@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Estadistica {
 
     public static final String dirEsta = "Estadistica.txt";

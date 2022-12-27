@@ -1,20 +1,16 @@
 import javax.speech.Central;
-import javax.speech.EngineException;
 import javax.speech.EngineModeDesc;
 import javax.speech.recognition.*;
-import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Micro extends ResultAdapter {
     public static Recognizer recognizer;
     private static final String dirPath = "Gramatica.txt";
-    private boolean desconectado;
     public String gst;
     public String cad;
     public String cadena;
@@ -22,10 +18,9 @@ public class Micro extends ResultAdapter {
     public String[] array;
     public RecorrerTren recott;
     public Mapa m;
-    String textEstacion;
+    //String textEstacion;
     public Micro(){
         recott = new RecorrerTren("Rieles.csv");
-        this.desconectado = true;
         cad = "";
         gst = "";
     }
@@ -47,7 +42,7 @@ public class Micro extends ResultAdapter {
             recognizer.requestFocus();
             recognizer.resume();
         } catch (Exception e) {
-            System.out.println("ha ocurrido algo inesperao micro: "+e.toString());
+            System.out.println("ha ocurrido algo inesperao micro: "+ e);
         }
     }
 
@@ -105,35 +100,5 @@ public class Micro extends ResultAdapter {
             }
         }
         return res;
-    }
-    public void apagar() {
-        try {
-            if (desconectado) {
-                recognizer.pause();
-                System.out.println("apagado micro");
-            }
-        }catch (Exception e) {
-            System.out.println("problema al apagar el micro: "+e.toString());
-        }
-    }
-    public void prender() {
-        try {
-            if (!desconectado) {
-                iniciar();
-                System.out.println("encendio microfono");
-            }else {
-                recognizer.resume();
-            }
-        } catch (Exception e) {
-            System.out.println("problema en el encendido del microfono: "+e.toString());
-        }
-    }
-
-    public String[] getArray() {
-        return array;
-    }
-
-    public void setArray(String[] array) {
-        this.array = array;
     }
 }

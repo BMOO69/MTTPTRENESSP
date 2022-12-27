@@ -25,7 +25,6 @@ public class Tren extends Thread implements Comparable<Tren> {
         this.numPasajeros = numPasajeros;
         this.colorSemaforo = colorSemaforo;
     }
-
     @Override
     public void run() {
         RecorrerTren recoT = new RecorrerTren(DIRRIELES);
@@ -137,27 +136,21 @@ public class Tren extends Thread implements Comparable<Tren> {
         res = codTren + "#" + numVagones + "#" + numPasajeros+ "#" + colorSemaforo;
         return  res;
     }
-
     public void setEtiquetaTren(JLabel etiquetaTren) {
         this.etiquetaTren = etiquetaTren;
     }
-
     public Riel getRl() {
         return rl;
     }
-
     public void setRl(Riel rl) {
         this.rl = rl;
     }
-
     public static void setMap(JPanel map) {
         Tren.map = map;
     }
-
     public void setNombreEstacionSalida(String nombreEstacion) {
         this.nombreEstacionSalida = nombreEstacion;
     }
-
     public void setNombreEstacionLLegada(String nombreEstacionLLegada) {
         this.nombreEstacionLLegada = nombreEstacionLLegada;
     }

@@ -1,10 +1,4 @@
-import sun.security.jgss.GSSHeader;
-
-import javax.smartcardio.ATR;
-import javax.speech.AudioException;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,22 +10,23 @@ public class Mapa extends JFrame implements ActionListener {
     
     CSVManager csv = CSVManager.getInstance();
     static final String path = "Rieles.csv";
-    ArrayList<String[]> ccssvv;
-    ArrayList<Riel> rieel;
-    JPanel panel;
-    JTextField cajaEsSalida;
-    JTextField cajaEsLlegada;
-    JButton JBtn_SalirTren;
-    String salida="";
-    String llegada="";
-    ImageIcon im;
-    Icon icono;
-    Frame frame;
-    RecorrerTren recoT;
-    AgregarTren agr;
-    String textEstacion;
-    JButton esta;
-    VenEstadistica venEsta;
+    public ArrayList<String[]> ccssvv;
+    public ArrayList<Riel> rieel;
+    public JPanel panel;
+    public JTextField cajaEsSalida;
+    public JTextField cajaEsLlegada;
+    public JButton JBtn_SalirTren;
+    public String salida="";
+    public String llegada="";
+    public Icon icono;
+    public Frame frame;
+    public RecorrerTren recoT;
+    public AgregarTren agr;
+    public JButton esta;
+    public VenEstadistica venEsta;
+
+
+
     public Mapa() {
         ccssvv = csv.read(path);
         rieel = csv.rielesAlmacen(ccssvv);
@@ -54,14 +49,12 @@ public class Mapa extends JFrame implements ActionListener {
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 g.setColor(Color.BLACK);
-
                 Graphics2D g2 =(Graphics2D) g;
                 g2.setStroke(new BasicStroke(10));
                 if(!rieel.isEmpty()) {
                     for (Riel riel : rieel) {
                         Estacion estacionA = riel.getEstacionA();
                         Estacion estacionB = riel.getEstacionB();
-
                         g.drawLine(estacionA.getPosX(), estacionA.getPosY(), estacionB.getPosX(), estacionB.getPosY());
                     }
                 }

@@ -1,15 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-
 public class VenEstadistica  extends JFrame {
 
-    CSVManager csv = CSVManager.getInstance();
+    public CSVManager csv = CSVManager.getInstance();
     private static final String dirEst = "Estadistica.txt";
-    JPanel panel;
+    public JPanel panel;
     private JTextArea area;
     private JScrollPane scroll;
-    ArrayList<String[]> variablesEstadisticos;
+    public ArrayList<String[]> variablesEstadisticos;
     public VenEstadistica() {
         setSize(500,500);
         setTitle("Estadistica de los trenes");
@@ -30,9 +29,7 @@ public class VenEstadistica  extends JFrame {
         scroll.setBounds(10,50,400,300);
         this.getContentPane().add(scroll);
         imprimir();
-
     }
-
     public ArrayList<String> estaciones(ArrayList<String[]> est) {
         ArrayList<String> res = new ArrayList<>();
         for (String[] i: est) {
@@ -42,7 +39,6 @@ public class VenEstadistica  extends JFrame {
         }
         return res;
     }
-
     public void imprimir() {
         ArrayList<String> vares = estaciones(variablesEstadisticos);
 

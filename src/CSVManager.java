@@ -9,7 +9,6 @@ public class CSVManager {
 
     private  final String SEPARADOR;
     private static CSVManager csv;
-
     public CSVManager() {
         SEPARADOR = "\\-";
     }
@@ -73,11 +72,11 @@ public class CSVManager {
     public ArrayList<Riel> rielesAlmacen(ArrayList<String[]> arr){
         ArrayList<Riel> res = new ArrayList<>();
         if (!arr.isEmpty()){
-            for (int i =0; i < arr.size(); i++){
-                int nRiel = Integer.parseInt(arr.get(i)[0]);
-                Estacion estacionA = recupEstation(arr.get(i)[1]);
-                Estacion estacionB = recupEstation(arr.get(i)[2]);
-                res.add(new Riel(nRiel,estacionA,estacionB));
+            for (String[] strings : arr) {
+                int nRiel = Integer.parseInt(strings[0]);
+                Estacion estacionA = recupEstation(strings[1]);
+                Estacion estacionB = recupEstation(strings[2]);
+                res.add(new Riel(nRiel, estacionA, estacionB));
             }
         }
         return res;
@@ -107,13 +106,13 @@ public class CSVManager {
         String[] array = cad.split(",");
         Queue<Tren> res = new PriorityQueue<>();
         if (array.length !=0){
-            for (int i = 0; i<array.length;i++) {
-                String[] var = array[i].split("#");
+            for (String s : array) {
+                String[] var = s.split("#");
                 String codT = var[0];
                 int numV = Integer.parseInt(var[1]);
                 int nump = Integer.parseInt(var[2]);
                 int color = Integer.parseInt(var[3]);
-                Tren nuevo = new Tren(codT,numV,nump,color);
+                Tren nuevo = new Tren(codT, numV, nump, color);
                 res.add(nuevo);
             }
         }

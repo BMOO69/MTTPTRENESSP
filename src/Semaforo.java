@@ -1,16 +1,12 @@
-import sun.security.mscapi.CPublicKey;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class Semaforo {
-
     public static final String rojoI = "imagenes/Rojo.jpg";
     public static final String amarilloI = "imagenes/Amarillo.jpg";
     public static final String verdeI ="imagenes/Verde.jpg";
 
-    public Semaforo(){
-    }
+    public Semaforo(){}
 
     public ImageIcon funcionarSemaforo(int colorMath){
 
@@ -27,7 +23,6 @@ public class Semaforo {
             Icon iconRojo = new ImageIcon(semaRojo.getImage().getScaledInstance(50,100,Image.SCALE_SMOOTH));
             return (ImageIcon) iconRojo;
         }
-
     }
 
     public int cambioSemaforo(int color){

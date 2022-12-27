@@ -75,24 +75,22 @@ public class AgregarTren extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int var =0;
-                RecorrerTren recoT = new RecorrerTren(path);
-                String res = textEstacion.getText();
-                for (int i = 0 ; i< riel.size();i++) {
-                    if (riel.get(i).getEstacionA().getDirEstacion().equals(textEstacion.getText())) {
-                        Tren tr = new Tren(codTren.getText(),Integer.parseInt(numVag.getText()),Integer.parseInt(numPas.getText()),1);
-                        Estacion estA = riel.get(i).getEstacionA();
-                        Estacion estB = riel.get(i).getEstacionB();
+                for (Riel value : riel) {
+                    if (value.getEstacionA().getDirEstacion().equals(textEstacion.getText())) {
+                        Tren tr = new Tren(codTren.getText(), Integer.parseInt(numVag.getText()), Integer.parseInt(numPas.getText()), 1);
+                        Estacion estA = value.getEstacionA();
+                        Estacion estB = value.getEstacionB();
                         estA.getParqueo().add(tr);
-                        Riel rl = new Riel(riel.get(i).getNumRiel(),estA,estB);
+                        Riel rl = new Riel(value.getNumRiel(), estA, estB);
                         var = 1;
-                        csv.overWrite(riel.get(i).getNumRiel(),path,rl.toString());
-                    } else if (riel.get(i).getEstacionB().getDirEstacion().equals(textEstacion.getText())) {
-                        Tren tr1 = new Tren(codTren.getText(),Integer.parseInt(numVag.getText()),Integer.parseInt(numPas.getText()),1);
-                        Estacion estA1 = riel.get(i).getEstacionA();
-                        Estacion estB1 = riel.get(i).getEstacionB();
+                        csv.overWrite(value.getNumRiel(), path, rl.toString());
+                    } else if (value.getEstacionB().getDirEstacion().equals(textEstacion.getText())) {
+                        Tren tr1 = new Tren(codTren.getText(), Integer.parseInt(numVag.getText()), Integer.parseInt(numPas.getText()), 1);
+                        Estacion estA1 = value.getEstacionA();
+                        Estacion estB1 = value.getEstacionB();
                         estB1.getParqueo().add(tr1);
-                        Riel rl1 = new Riel(riel.get(i).getNumRiel(),estA1,estB1);
-                        csv.overWrite(riel.get(i).getNumRiel(),path, rl1.toString());
+                        Riel rl1 = new Riel(value.getNumRiel(), estA1, estB1);
+                        csv.overWrite(value.getNumRiel(), path, rl1.toString());
                         var = 1;
                     }
                 }
