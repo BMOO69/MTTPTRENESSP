@@ -49,3 +49,10 @@ Sacaba-Quillacollo-SegundoTren2A-90
 Quillacollo-Sacaba-SegundoTren2A-90
 Sacaba-Cercado-PrimerTren1A-54
 Cercado-Tarata-Tercer1BB-12
+Sacaba-Quillacollo-Segundo1B-34
+Cercado-Tarata-SegundoTren2AA-90
+Cercado-Tarata-SegundoTren2AA-90
+Cercado-Tarata-PrimerTren1AA-54
+Tarata-Cercado-Primer1BB-45
+Sacaba-Cercado-TercerTren3A-45
+Sacaba-Cercado-PrimerTren1A-54
